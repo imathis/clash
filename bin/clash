@@ -1,0 +1,22 @@
+#! /usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.expand_path("../lib", File.dirname(__FILE__)))
+
+require 'clash'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: clash [options]"
+
+  opts.on("-c CONFIG", "--config CONFIG", "Set config file (default: .clash.yml).") do |c|
+    options[:config] = c
+  end
+
+  opts.on("-t test[test, test]", "--tests test[test, test]", Array, "Select which test number(s) to run.") do |t|
+    options[:tests] = t.map{ |n| n.to_i }
+  end
+
+end.parse!
+
+Clash.test(options)
