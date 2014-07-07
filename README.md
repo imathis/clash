@@ -2,6 +2,10 @@
 
 Clash is a diff based testing framework for static sites.
 
+[![Build Status](https://travis-ci.org/imathis/clash.svg)](https://travis-ci.org/imathis/clash)
+[![Gem Version](http://img.shields.io/gem/v/clash.svg)](https://rubygems.org/gems/clash)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://imathis.mit-license.org)
+
 ## Installation
 
 Add this line to your application's Gemfile:
