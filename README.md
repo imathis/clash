@@ -42,20 +42,32 @@ $ clash 2,3   # run the second and third tests
 -h, --help              show this message
 ```
 
-## Configuration
-  
 Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
 option to choose a different configuration file.
 
-Simple configuration:
-Clash will build the site with Jekyll, and compare the contents of _site/ to expected/.
+### Example usage:
+
+If you have a simple liquid tag you want to test:
+
+ 1. Create a simple Jekyll site with tags.
+ 2. Create one or more pages which test the tags features.
+ 3. Manually check that the compiled site looks right.
+ 4. Copy `_site` to `_expected`.
+ 5. Create a test file like the one below.
+ 6. **Code with confidence!**
+
+### Simple configuration:
+
+Clash will build your site with Jekyll, and compare the contents of _site/ to _expected/.
 
 ```
 build: true
-compare: _site, expected
+compare: _site, _expected
 ```
 
-### Configuration options
+Of course, there is a lot more you can do.
+
+## Configuration
 
 | Option           | Type           | Description                                              |
 |:-----------------|:---------------|:---------------------------------------------------------|
@@ -71,11 +83,11 @@ Note: in the table above, String/Array means a single argument can be a string, 
 can be passed as an array. For example:
 
 ```yaml
-compare: _site, expected                      # Compare two directories
+compare: _site, _expected                     # Compare two directories
 compare:                                      # Compare mutiple items
-  - _site/index.html, expected/index.html
-  - _site/atom.xml, expected/atom.xml
-  - _site/posts, expected/posts
+  - _site/index.html, _expected/index.html
+  - _site/atom.xml, _expected/atom.xml
+  - _site/posts, _expected/posts
 ```
 
 To run multiple tests each test should be an array, for example:
