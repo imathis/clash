@@ -10,8 +10,4 @@ module Clash
   autoload :Test,    'clash/test'
   autoload :Diff,    'clash/diff'
   autoload :Helpers, 'clash/helpers'
-
-  def self.test(options={})
-    Tests.new(options).run
-  end
 end

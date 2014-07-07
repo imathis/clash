@@ -14,14 +14,41 @@ OptionParser.new do |opts|
     options[:file] = f
   end
 
-  opts.on("-o test[test, test]", "--only test[test, test]", Array, "Select which test number(s) to run.") do |o|
-    options[:only] = o.map{ |n| n.to_i }
+  opts.on("-c", "--context NUMBER", Integer, "Number of lines of context on a diff") do |context|
+    options[:context] = context
   end
 
-  opts.on("--context NUMBER", Integer, "Number of lines of context on a diff") do |context|
-    options[:context] = context
+  opts.on("-h", "--help", "Show help message") do |h|
+    options[:help] = h
   end
 
 end.parse!
 
-Clash.test(options)
+if !ARGV.empty?
+  # Parse input `clash 1 2 3` and `clash 1,2,3` the same
+  #
+  options[:only] = ARGV.join(',').split(',').map{ |n| n.to_i }
+end
+
+if options[:help]
+  puts <<-HELP
+clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
+
+Usage:
+
+  clash [test(s)] [options]
+
+  To run only specific tests, pass test numbers separated by commas.
+
+    `clash 1`   # run only the first test
+    `clash 2,3` # run the second and third tests
+
+Options:
+  
+  -f, --file    FILE      Use a specific test file (default: .clash.yml)
+  -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
+  -h, --help              show this message
+HELP
+else
+  Clash::Tests.new(options).run
+end
