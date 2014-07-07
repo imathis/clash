@@ -1,7 +1,7 @@
 Configuration file: _config.yml
 Configuration file: _test1.yml
-            Source: /Users/imathis/workspace/octodev/clash/test
-       Destination: /Users/imathis/workspace/octodev/clash/test/_site
+            Source: test
+       Destination: _site
       Generating... 
                     done.
 .
