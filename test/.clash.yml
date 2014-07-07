@@ -1,4 +1,14 @@
 -
+  title: Checking a and b
   compare: 'a.txt, b.txt'
 -
-  compare: 'c.txt, d.txt'
+  title: Checking a and c
+  compare: 'a.txt, c.txt'
+  config:
+    feed: _test.yml
+-
+  title: Checking dirs a and b
+  compare: 'a, b'
+-
+  title: Checking dirs a and c
+  compare: 'a, c'
