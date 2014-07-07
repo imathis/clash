@@ -26,11 +26,11 @@ module Clash
 
         if !file_diff.empty?
           file_diff = format_diff(file_diff)
-          @diffs["Compared #{colorize(a, 'yellow')} to #{colorize(b,'yellow')}"] = file_diff 
+          @diffs["Compared #{colorize(a, 'yellow')} to #{colorize(b,'yellow')}"] = file_diff
         end
       end
     end
-    
+
     # Recursively diff common files between dir1 and dir2
     #
     def diff_dirs(dir1, dir2)
@@ -66,7 +66,7 @@ module Clash
     def unique_files(dir, dir_files, common_files)
       unique = dir_files - common_files
       if !unique.empty?
-        @test_failures << colorize("Files missing from #{dir}/", 'red')
+        @test_failures << bleed("Files missing from #{dir}/")
         unique.each {|f| @test_failures << "- #{f}"}
       end
     end
@@ -75,7 +75,7 @@ module Clash
       file_exists = File.exists?(f)
 
       if !file_exists
-        @test_failures << "#{colorize('File not found:', 'red')} #{f}"
+        @test_failures << "#{bleed('File not found:')} #{f}"
       end
 
       file_exists
@@ -87,13 +87,13 @@ module Clash
 
       diff = diff.map { |line|
         case line
-        when /^\+/ then 
+        when /^\+/ then
           count = 0
-          colorize(line, 'green')
-        when /^-/ then 
+          vomit(line)
+        when /^-/ then
           count = 0
-          colorize(line, 'red')
-        else 
+          bleed(line)
+        else
           if count == @context
             count = 0
             "...\n#{line}"

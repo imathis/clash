@@ -1,7 +1,7 @@
 module Clash
   class Tests
     include Helpers
-    
+
     def initialize(options={})
       @options = options
 
@@ -39,10 +39,10 @@ module Clash
     end
 
     def print_results
-      puts "" # newline
+      puts # newline
 
       if @results.empty?
-        puts colorize("Passed #{@passed.size} of #{@passed.size} tests", "green")
+        puts vomit("Passed #{@passed.size} of #{@passed.size} tests")
       else
         @results.each do |test, results|
           if !results.empty?
@@ -50,8 +50,8 @@ module Clash
           end
         end
 
-        puts "#{colorize("Passed #{@passed.size}", "green")}: Tests: #{@passed.join(',')}"
-        puts "#{colorize("Failed #{@failed.size}", "red")}: Tests: #{@failed.join(',')}"
+        puts "#{vomit("Passed #{@passed.size}")}: Tests: #{@passed.join(',')}"
+        puts "#{bleed("Failed #{@failed.size}")}: Tests: #{@failed.join(',')}"
       end
     end
   end
