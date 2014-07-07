@@ -23,12 +23,13 @@ Or install it yourself as:
 ## Usage
 
 ```
-clash [test(s)] [options]
+clash [test] [options]
 ```
 
 To run only specific tests, pass test numbers separated by commas.
 
 ```
+$ clash       # run all tests
 $ clash 1     # run only the first test
 $ clash 2,3   # run the second and third tests
 ```
