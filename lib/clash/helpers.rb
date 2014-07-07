@@ -14,6 +14,14 @@ module Clash
       end
     end
 
+    def vomit(str)
+      colorize(str, :green)
+    end
+
+    def bleed(str)
+      colorize(str, :red)
+    end
+
     # Print a single character without a newline
     #
     def pout(str)
