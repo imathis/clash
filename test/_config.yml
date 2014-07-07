@@ -1,3 +1,4 @@
 name: Clash test
 exclude:
   - Gemfile*
+  - test.rb

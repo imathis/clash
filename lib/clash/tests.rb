@@ -1,47 +1,73 @@
 module Clash
   class Tests
     include Helpers
+
+    attr_accessor :tests
     
     def initialize(options={})
       @options = options
-
-      @options[:file]    ||= '.clash.yml'
-      @options[:only]      = default_array(@options[:only])
-
-      @tests = default_array(SafeYAML.load_file(@options[:file]))
-    end
-
-    def run
       @results = {}
       @passed = []
       @failed = []
-      @tests.each_with_index do |options, index|
 
+      @options[:file]    ||= '.clash.yml'
+      @options[:only]    ||= []
+      @options[:exit]    ||= true
+
+      @tests = read_tests
+    end
+
+    def run
+      @tests.each_with_index do |options, index|
         # If tests are limited, only run specified tests
         #
-        next if !@options[:only].empty? && !@options[:only].include?(index + 1)
-
-        options['index'] = index + 1
-        options['context'] = @options[:context]
-
-        results = Test.new(options).run
-
-        if results.nil?
-          @passed << index + 1
-        else
-          @failed << index + 1
-          @results[index + 1] = results
-        end
+        next if options.nil?
+        run_test(options, index)
       end
 
       print_results
+    end
+
+    def run_test(options, index)
+
+      options['index'] = index + 1
+      options['context'] = @options[:context]
+
+      results = Test.new(options).run
+
+      if results.nil?
+        @passed << index + 1
+      else
+        @failed << index + 1
+        @results[index + 1] = results
+      end
+    end
+
+    def read_tests
+      tests = SafeYAML.load_file(@options[:file])
+      index = 0
+
+      default_array(tests).map do |test|
+        index += 1
+
+        # Admit all tests if no tests are excluded
+        if @options[:only].empty?
+          test
+        # Only admit selected tests
+        elsif @options[:only].include?(index)
+          test
+        # Remove tests not selected
+        else
+          nil
+        end
+      end
     end
 
     def print_results
       puts "" # newline
 
       if @results.empty?
-        puts colorize("\n\nPassed #{@passed.size} of #{@passed.size} tests", "green")
+        puts greenit("\n\nPassed #{@passed.size} of #{@passed.size} tests")
       else
         @results.each do |test, results|
           if !results.empty?
@@ -49,9 +75,11 @@ module Clash
           end
         end
 
-        puts "\n\nResult:".bold
-        puts "#{colorize(" Passed #{@passed.size}", "green")}: Tests: #{@passed.join(',')}"
-        puts "#{colorize(" Failed #{@failed.size}", "red")}: Tests: #{@failed.join(',')}"
+        puts boldit("\n\nResult:")
+        puts "#{greenit(" Passed #{@passed.size}")}: Tests: #{@passed.join(',')}"
+        puts "#{redit(" Failed #{@failed.size}")}: Tests: #{@failed.join(',')}"
+
+        exit 1 if @options[:exit]
       end
     end
   end

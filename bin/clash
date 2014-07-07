@@ -7,18 +7,34 @@ require 'optparse'
 
 options = {}
 
-OptionParser.new do |opts|
-  opts.banner = "Usage: clash [options]"
+banner = <<-BANNER
+clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
 
-  opts.on("-f FILE", "--file FILE", "Set test file (default: .clash.yml).") do |f|
+Usage:
+
+  clash [test(s)] [options]
+
+  To run only specific tests, pass test numbers separated by commas.
+
+    $ clash 1     # run only the first test
+    $ clash 2,3   # run the second and third tests
+
+Options:
+BANNER
+
+OptionParser.new do |opts|
+  opts.banner = banner
+
+  opts.on("-f FILE", "--file FILE", "Use a specific test file (default: .clash.yml)") do |f|
     options[:file] = f
   end
 
-  opts.on("-c", "--context NUMBER", Integer, "Number of lines of context on a diff") do |context|
+  opts.on("-c", "--context NUMBER", Integer, "On diff errors, show NUMBER of lines of surrounding context (default: 2)") do |context|
     options[:context] = context
   end
-
-  opts.on("-h", "--help", "Show help message") do |h|
+  
+  opts.on("-h", "--help", "Show this message") do |h|
+    puts opts
     options[:help] = h
   end
 
@@ -30,25 +46,12 @@ if !ARGV.empty?
   options[:only] = ARGV.join(',').split(',').map{ |n| n.to_i }
 end
 
-if options[:help]
-  puts <<-HELP
-clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
+if !options[:help]
+  tests = Clash::Tests.new(options)
+  tests.run
+else
 
-Usage:
-
-  clash [test(s)] [options]
-
-  To run only specific tests, pass test numbers separated by commas.
-
-    `clash 1`   # run only the first test
-    `clash 2,3` # run the second and third tests
-
-Options:
-  
-  -f, --file    FILE      Use a specific test file (default: .clash.yml)
-  -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
-  -h, --help              show this message
-
+configuration = <<-CONFIG
 Configuration:
   
   Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
@@ -111,7 +114,5 @@ Configuration:
       - _configs/feed.yml will be copied to ./_plugins/feed/config.yml (and removed after tests)
 
     This will not overwrite existing files as they will be backed up an restored after tests.
-HELP
-else
-  Clash::Tests.new(options).run
+CONFIG
 end

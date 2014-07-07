@@ -1,0 +1,32 @@
+F
+
+Failed Test #8 - (Should fail) Compare two dirs with differences
+========================================================
+
+Missing from directory a:
+  - 3.txt
+
+Missing from directory _c:
+  - 2.txt
+
+Compared a/1.txt to _c/1.txt:
+
+   Biltong magna excepteur pork dolore, turducken laboris veniam eiusmod shank. Cons
+   ectetur consequat exercitation pork belly tri-tip in. Biltong meatball velit, rep
+  -rehenderit culpa turkey tempor deserunt. Pork belly andouille sirloin ham hock co
+  +rehenderit turkey tempor deserunt. Pork belly andouille sirloin ham hock co
+   nsequat ground round ham beef ribs bresaola et tail hamburger commodo bacon. Eius
+   mod capicola pancetta ham nisi turkey tempor qui hamburger.
+...
+   
+   Ribeye kevin irure, consectetur jowl tenderloin nulla. Nulla chuck ground round o
+  -fficia, prosciutto kevin shankle corned beef anim salami spare ribs. Landjaeger p
+  +fficia, kevin shankle corned beef anim salami spare ribs. Landjaeger p
+   astrami aliquip andouille. Proident in venison bresaola drumstick landjaeger occa
+   ecat. Pork spare ribs consectetur sint flank veniam.
+
+
+
+Result:
+ Passed 0: Tests: 
+ Failed 1: Tests: 8

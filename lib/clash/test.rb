@@ -101,7 +101,8 @@ module Clash
     def enforce_missing
       default_array(@options['enforce_missing']).each do |file|
         if File.exists?(file)
-          @test_failures << "File #{file} shouldn't exist."
+          message = yellowit("\nFile #{file} shouldn't exist.") + "\n  But it does!"
+          @test_failures << message
         end
       end
     end
@@ -122,7 +123,7 @@ module Clash
     end
 
     def test_title
-      title = colorize("Test ##{@options['index']}", 'bold')
+      title = boldit("Test ##{@options['index']}")
       title << " - #{@options['title']}" unless @options['title'].nil?
       <<-HERE
 Failed #{title}

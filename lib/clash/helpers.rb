@@ -23,12 +23,28 @@ module Clash
       end
     end
 
+    def greenit(str)
+      colorize(str, 'green')
+    end
+
+    def yellowit(str)
+      colorize(str, 'yellow')
+    end
+    
+    def redit(str)
+      colorize(str, 'red')
+    end
+
+    def boldit(str)
+      colorize(str, 'bold')
+    end
+
     def print_fail
-      pout colorize('F', 'red')
+      pout redit('F')
     end
 
     def print_pass
-      pout colorize('.', 'green')
+      pout greenit('.')
     end
   end
 end

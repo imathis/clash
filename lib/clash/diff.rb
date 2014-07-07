@@ -29,7 +29,7 @@ module Clash
 
         if !file_diff.empty?
           file_diff = format_diff(file_diff)
-          @diffs["\nCompared #{colorize(a, 'yellow')} to #{colorize(b,'yellow')}"] = file_diff 
+          @diffs[yellowit("\nCompared #{a} to #{b}:\n")] = file_diff 
         end
       end
     end
@@ -69,8 +69,12 @@ module Clash
     def unique_files(dir, dir_files, common_files)
       unique = dir_files - common_files
       if !unique.empty?
-        @test_failures << colorize("\nFiles missing from directory #{dir}:\n", 'red')
-        unique.each {|f| @test_failures << "  - #{f}"}
+        @test_failures << yellowit("\nMissing from directory #{dir}:\n")
+        unique.each do |f| 
+          failure = "  - #{f}"
+          failure << "\n" if unique.last == f
+          @test_failures << failure
+        end
       end
     end
 
@@ -78,7 +82,7 @@ module Clash
       file_exists = File.exists?(f)
 
       if !file_exists
-        @test_failures << "#{colorize('File not found:', 'red')} #{f}"
+        @test_failures << "#{redit('File not found:')} #{f}"
       end
 
       file_exists
@@ -92,17 +96,17 @@ module Clash
         case line
         when /^\+/ then 
           count = 0
-          colorize(line, 'green')
+          "  #{greenit(line)}"
         when /^-/ then 
           count = 0
-          colorize(line, 'red')
+          "  #{redit(line)}"
         else 
           if count == @context
             count = 0
-            "...\n#{line}"
+            "...\n  #{line}"
           else
             count += 1
-            line
+            "  #{line}"
           end
         end
       }
