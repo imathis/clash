@@ -3,5 +3,7 @@ name: Clashing
 name: Feed Clashing
 .
 
-
-Passed 1 of 1 tests
+Test summary:
+ Tests run: 1
+ Passed 1 - Tests: 4
+ Failed 0 

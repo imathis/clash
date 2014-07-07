@@ -6,7 +6,7 @@ module Clash
     
     def initialize(options={})
       @options = options
-      @results = {}
+      @results = []
       @passed = []
       @failed = []
 
@@ -39,7 +39,7 @@ module Clash
         @passed << index + 1
       else
         @failed << index + 1
-        @results[index + 1] = results
+        @results << results
       end
     end
 
@@ -64,22 +64,26 @@ module Clash
     end
 
     def print_results
-      puts "" # newline
 
-      if @results.empty?
-        puts greenit("\n\nPassed #{@passed.size} of #{@passed.size} tests")
+
+      puts boldit("\n\nFailures:") unless @results.empty?
+      @results.each do |results|
+        puts "\n#{results.join('')}"
+      end
+
+      puts boldit("\n\nTest summary:")
+      puts yellowit(" Tests run: #{@passed.dup.concat(@failed).size}")
+      puts "#{greenit(" Passed #{@passed.size}")} #{list_tests(@passed)}"
+      puts "#{redit(" Failed #{@failed.size}")} #{list_tests(@failed)}"
+
+      exit 1 if @options[:exit] && !@results.empty?
+    end
+
+    def list_tests(tests)
+      if tests.empty?
+        ''
       else
-        @results.each do |test, results|
-          if !results.empty?
-            puts "\n#{results.join('')}"
-          end
-        end
-
-        puts boldit("\n\nResult:")
-        puts "#{greenit(" Passed #{@passed.size}")}: Tests: #{@passed.join(',')}"
-        puts "#{redit(" Failed #{@failed.size}")}: Tests: #{@failed.join(',')}"
-
-        exit 1 if @options[:exit]
+        "- Tests: #{tests.join(',')}"
       end
     end
   end

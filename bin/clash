@@ -12,7 +12,7 @@ clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
 
 Usage:
 
-  clash [test(s)] [options]
+  clash [tests] [options]
 
   To run only specific tests, pass test numbers separated by commas.
 
@@ -20,7 +20,19 @@ Usage:
     $ clash 2,3   # run the second and third tests
 
 Options:
+
 BANNER
+
+config_info = <<-CONFIG
+
+Configuration:
+
+  Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
+  option to choose a different configuration file.
+  
+  View the README or visit https://github.com/imathis/clash for configuration info.
+
+CONFIG
 
 OptionParser.new do |opts|
   opts.banner = banner
@@ -35,84 +47,19 @@ OptionParser.new do |opts|
   
   opts.on("-h", "--help", "Show this message") do |h|
     puts opts
+    puts config_info
     options[:help] = h
   end
 
 end.parse!
 
-if !ARGV.empty?
+unless ARGV.empty?
   # Parse input `clash 1 2 3` and `clash 1,2,3` the same
   #
   options[:only] = ARGV.join(',').split(',').map{ |n| n.to_i }
 end
 
-if !options[:help]
+unless options[:help]
   tests = Clash::Tests.new(options)
   tests.run
-else
-
-configuration = <<-CONFIG
-Configuration:
-  
-  Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
-  option to choose a different configuration file.
-
-  Simple configuration:
-  Clash will build the site with Jekyll, and compare the contents of _site/ to expected/.
-
-    build: true
-    compare: _site, expected
-
-  Full configuration:
-
-  | Option           | Type           | Description                                              |
-  |:-----------------|:---------------|:---------------------------------------------------------|
-  | before           | String/Array   | Run system command(s) before running tests.              |
-  | build            | Boolean        | Build the site with Jekyll.                              |
-  | config           | Hash           | Configure Jekyll, Octopress or Ink plugins. (Info below) |
-  | compare          | String/Array   | Compare files or directories. e.g. "a.md, b.md"          |
-  | enforce_missing  | String/Array   | Ensure that these files are not found.                   |
-  | after            | String/Array   | Run system command(s) after running tests.               |
-
-  Note: in the table above, String/Array means a single argument can be a string, but mutliples
-  can be passed as an array. For example:
-
-    compare: _site, expected                      # Compare two directories
-    compare:                                      # Compare mutiple items
-      - _site/index.html, expected/index.html
-      - _site/atom.xml, expected/atom.xml
-      - _site/posts, expected/posts
-
-
-  To run multiple tests each test should be an array, for example:
-
-    -
-      name: Check site build
-      build: true
-      compare: _site, _expected
-    -
-      name: Check asset compression
-      compare: _cdn_build, _cdn_expected
-
-  Note: When running multiple tests, adding a name can help the reading of test failures.
-
-
-  Configuring Jekyll, Octopress and Octopress Ink plugins:
-
-    build: true
-    config:
-      jekyll:    
-        - _configs/config.yml
-        - _configs/test1.yml
-      octopress: _configs/octopress.yml
-      feed:      _configs/feed.yml
-
-    In this example:
-
-      - Jekyll will build with `--config _configs/config.yml,_configs/test1.yml`
-      - _configs/octopress.yml will be copied to ./_octopress.yml (and removed after tests)
-      - _configs/feed.yml will be copied to ./_plugins/feed/config.yml (and removed after tests)
-
-    This will not overwrite existing files as they will be backed up an restored after tests.
-CONFIG
 end

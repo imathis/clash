@@ -5,5 +5,7 @@ Configuration file: _config.yml
                     done.
 .
 
-
-Passed 1 of 1 tests
+Test summary:
+ Tests run: 1
+ Passed 1 - Tests: 1
+ Failed 0 

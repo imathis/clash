@@ -1,12 +1,15 @@
 F
 
-Failed Test #10 - (Should fail) File shouldn't exist (and does)
+Failures:
+
+10) (Should fail) File shouldn't exist (and does)
 ========================================================
 
 File a/1.txt shouldn't exist.
   But it does!
 
 
-Result:
- Passed 0: Tests: 
- Failed 1: Tests: 10
+Test summary:
+ Tests run: 1
+ Passed 0 
+ Failed 1 - Tests: 10

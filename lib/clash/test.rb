@@ -123,10 +123,10 @@ module Clash
     end
 
     def test_title
-      title = boldit("Test ##{@options['index']}")
-      title << " - #{@options['title']}" unless @options['title'].nil?
+      title = boldit("#{@options['index']})")
+      title << " #{@options['title']}" unless @options['title'].nil?
       <<-HERE
-Failed #{title}
+#{title}
 ========================================================
 HERE
     end

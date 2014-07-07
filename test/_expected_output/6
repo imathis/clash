@@ -1,6 +1,8 @@
 F
 
-Failed Test #6 - (Should fail) Compare files with differences
+Failures:
+
+6) (Should fail) Compare files with differences
 ========================================================
 
 Compared a/1.txt to _c/1.txt:
@@ -38,6 +40,7 @@ Compared _site/a/1.txt to _c/1.txt:
 
 
 
-Result:
- Passed 0: Tests: 
- Failed 1: Tests: 6
+Test summary:
+ Tests run: 1
+ Passed 0 
+ Failed 1 - Tests: 6
