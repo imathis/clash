@@ -2,11 +2,14 @@ module Clash
   class Diff
     include Helpers
 
+    attr_accessor :test_failures
+
     def initialize(a, b, options={})
       @diffs   = {}
       @a       = a
       @b       = b
       @context = options[:context] || 2
+      @test_failures = []
     end
 
     def diff
@@ -26,7 +29,7 @@ module Clash
 
         if !file_diff.empty?
           file_diff = format_diff(file_diff)
-          @diffs["Compared #{colorize(a, 'yellow')} to #{colorize(b,'yellow')}"] = file_diff 
+          @diffs["\nCompared #{colorize(a, 'yellow')} to #{colorize(b,'yellow')}"] = file_diff 
         end
       end
     end
@@ -44,13 +47,13 @@ module Clash
     # Return files that exist in both directories (without dir names)
     #
     def mattching_dir_files(dir1, dir2)
-      dir1_files = dir_files(dir1).map {|f| f.sub(dir1,'') }
-      dir2_files = dir_files(dir2).map {|f| f.sub(dir2,'') }
+      dir1_files = dir_files(dir1).map {|f| f.sub("#{dir1}/",'') }
+      dir2_files = dir_files(dir2).map {|f| f.sub("#{dir2}/",'') }
 
       matches = dir1_files & dir2_files
 
-      unique_files(dir1, dir1_files, matches)
-      unique_files(dir2, dir2_files, matches)
+      unique_files(dir1, dir2_files, matches)
+      unique_files(dir2, dir1_files, matches)
 
       matches
     end
@@ -66,8 +69,8 @@ module Clash
     def unique_files(dir, dir_files, common_files)
       unique = dir_files - common_files
       if !unique.empty?
-        @test_failures << colorize("Files missing from #{dir}/", 'red')
-        unique.each {|f| @test_failures << "- #{f}"}
+        @test_failures << colorize("\nFiles missing from directory #{dir}:\n", 'red')
+        unique.each {|f| @test_failures << "  - #{f}"}
       end
     end
 

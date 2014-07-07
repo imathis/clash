@@ -6,7 +6,6 @@ module Clash
       @options = options
 
       @options[:file]    ||= '.clash.yml'
-      @options[:context] ||= 2
       @options[:only]      = default_array(@options[:only])
 
       @tests = default_array(SafeYAML.load_file(@options[:file]))
@@ -42,7 +41,7 @@ module Clash
       puts "" # newline
 
       if @results.empty?
-        puts colorize("Passed #{@passed.size} of #{@passed.size} tests", "green")
+        puts colorize("\n\nPassed #{@passed.size} of #{@passed.size} tests", "green")
       else
         @results.each do |test, results|
           if !results.empty?
@@ -50,8 +49,9 @@ module Clash
           end
         end
 
-        puts "#{colorize("Passed #{@passed.size}", "green")}: Tests: #{@passed.join(',')}"
-        puts "#{colorize("Failed #{@failed.size}", "red")}: Tests: #{@failed.join(',')}"
+        puts "\n\nResult:".bold
+        puts "#{colorize(" Passed #{@passed.size}", "green")}: Tests: #{@passed.join(',')}"
+        puts "#{colorize(" Failed #{@failed.size}", "red")}: Tests: #{@failed.join(',')}"
       end
     end
   end

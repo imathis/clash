@@ -1,8 +1,8 @@
 module Clash
   class Test
-    attr_accessor :title
-
     include Helpers
+
+    attr_accessor :title
 
     def initialize(options={})
       @test_failures = []
@@ -15,11 +15,11 @@ module Clash
       system_cmd(@options['before'])
       config
       build if @options['build']
-      cleanup_config
       compare
       enforce_missing
-      print_result
       system_cmd(@options['after'])
+      cleanup_config
+      print_result
       results
     end
 
@@ -86,7 +86,12 @@ module Clash
     def compare
       default_array(@options['compare']).each do |files|
         f = files.split(',')
-        diff = Diff.new(f[0].strip, f[1].strip, context: @options['context']).diff
+
+        differ = Diff.new(f[0].strip, f[1].strip, context: @options['context'])
+        diff = differ.diff
+
+        @test_failures.concat differ.test_failures
+
         diff.each do |title, diff|
           @test_failures << "#{title}\n#{diff}\n"
         end
@@ -94,7 +99,7 @@ module Clash
     end
 
     def enforce_missing
-      default_array(@options['enforce_missing']).each do |files|
+      default_array(@options['enforce_missing']).each do |file|
         if File.exists?(file)
           @test_failures << "File #{file} shouldn't exist."
         end
