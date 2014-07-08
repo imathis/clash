@@ -85,9 +85,9 @@ module Clash
 
     def compare
       default_array(@options['compare']).each do |files|
-        f = files.split(',')
+        f = files.gsub(',',' ').split
 
-        differ = Diff.new(f[0].strip, f[1].strip, context: @options['context'])
+        differ = Diff.new(f.first, f.last, context: @options['context'])
         diff = differ.diff
 
         @test_failures.concat differ.test_failures

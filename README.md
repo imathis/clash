@@ -62,7 +62,7 @@ Clash will build your site with Jekyll, and compare the contents of _site/ to _e
 
 ```
 build: true
-compare: _site, _expected
+compare: _site _expected
 ```
 
 Of course, there is a lot more you can do.
@@ -75,7 +75,7 @@ Of course, there is a lot more you can do.
 | before           | String/Array   | Run system command(s) before running tests.              |
 | build            | Boolean        | Build the site with Jekyll.                              |
 | config           | Hash           | Configure Jekyll, Octopress or Ink plugins. (Info below) |
-| compare          | String/Array   | Compare files or directories. e.g. "a.md, b.md"          |
+| compare          | String/Array   | Compare files or directories. e.g. "a.md b.md"           |
 | enforce_missing  | String/Array   | Ensure that these files are not found.                   |
 | after            | String/Array   | Run system command(s) after running tests.               |
 
@@ -83,11 +83,11 @@ Note: in the table above, String/Array means a single argument can be a string, 
 can be passed as an array. For example:
 
 ```yaml
-compare: _site, _expected                     # Compare two directories
-compare:                                      # Compare mutiple items
-  - _site/index.html, _expected/index.html
-  - _site/atom.xml, _expected/atom.xml
-  - _site/posts, _expected/posts
+compare: _site _expected                     # Compare two directories
+compare:                                     # Compare mutiple items
+  - _site/index.html _expected/index.html
+  - _site/atom.xml _expected/atom.xml
+  - _site/posts _expected/posts
 ```
 
 To run multiple tests each test should be an array, for example:
@@ -96,10 +96,10 @@ To run multiple tests each test should be an array, for example:
 -
   name: Check site build
   build: true
-  compare: _site, _expected
+  compare: _site _expected
 -
   name: Check asset compression
-  compare: _cdn_build, _cdn_expected
+  compare: _cdn_build _cdn_expected
 ```
 
 Note: When running multiple tests, adding a name can help the reading of test failures.

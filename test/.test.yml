@@ -1,1 +1,1 @@
-compare: _output, _expected_output
+compare: _output _expected_output

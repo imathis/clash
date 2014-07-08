@@ -1,7 +1,7 @@
 -
   title: Standard build
   build: true
-  compare: _site/index.html, _expected/default.html
+  compare: _site/index.html _expected/default.html
 -
   title: Build Jekyll with alternate configuration
   build: true
@@ -9,7 +9,7 @@
     jekyll: 
       - _config.yml
       - _test1.yml
-  compare: _site/index.html, _expected/alternate.html
+  compare: _site/index.html _expected/alternate.html
 -
   title: Test Octopress configuration
   config:
@@ -29,19 +29,19 @@
 -
   title: Compare matching files
   compare:
-    - a/1.txt, _site/a/1.txt
-    - a/2.txt, _site/a/2.txt
+    - a/1.txt _site/a/1.txt
+    - a/2.txt _site/a/2.txt
 -
   title: (Should fail) Compare files with differences
   compare:
-    - a/1.txt, _c/1.txt
-    - _site/a/1.txt, _c/1.txt
+    - a/1.txt _c/1.txt
+    - _site/a/1.txt _c/1.txt
 -
   title: Compare two matching dirs
-  compare: a, _site/a
+  compare: a _site/a
 -
   title: (Should fail) Compare two dirs with differences
-  compare: a, _c
+  compare: a _c
 -
   title: File shouldn't exist.
   enforce_missing:
