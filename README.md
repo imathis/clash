@@ -58,11 +58,11 @@ If you have a simple liquid tag you want to test:
 
 ### Simple configuration:
 
-Clash will build your site with Jekyll, and compare the contents of _site/ to _expected/.
+Clash will build your site with Jekyll, and compare the contents of _expected/ to _site/.
 
 ```
 build: true
-compare: _site _expected
+compare: _expected _site
 ```
 
 Of course, there is a lot more you can do.
@@ -83,11 +83,11 @@ Note: in the table above, String/Array means a single argument can be a string, 
 can be passed as an array. For example:
 
 ```yaml
-compare: _site _expected                     # Compare two directories
-compare:                                     # Compare mutiple items
-  - _site/index.html _expected/index.html
-  - _site/atom.xml _expected/atom.xml
-  - _site/posts _expected/posts
+compare: _expected _site                     # Compare two directories
+compare:                                     # Compare multiple items
+  - _expected/index.html _site/index.html
+  - _expected/atom.xml _site/atom.xml
+  - _expected/posts _site/posts
 ```
 
 To run multiple tests each test should be an array, for example:
@@ -96,10 +96,10 @@ To run multiple tests each test should be an array, for example:
 -
   name: Check site build
   build: true
-  compare: _site _expected
+  compare: _expected _site
 -
   name: Check asset compression
-  compare: _cdn_build _cdn_expected
+  compare: _cdn_expected _cdn_build
 ```
 
 Note: When running multiple tests, adding a name can help the reading of test failures.
