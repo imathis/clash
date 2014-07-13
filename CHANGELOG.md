@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.0.2 - 2014-07-13
+- Sets JEKYLL_ENV to 'test'
+
 ### 1.0.1 - 2014-07-07
 - compare no longer needs a comma (to be more like diff)
 

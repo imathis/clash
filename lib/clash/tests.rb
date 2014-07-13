@@ -5,6 +5,8 @@ module Clash
     attr_accessor :tests
     
     def initialize(options={})
+      ENV['JEKYLL_ENV'] = 'test'
+      
       @options = options
       @results = []
       @passed = []
