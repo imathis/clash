@@ -1,5 +1,26 @@
 module Clash
   module Helpers
+    extend self
+
+    def expand_list_of_numbers(only)
+      # Used in options[:only] to expand all possibilities.
+      if only.is_a?(Array)
+        only = only.join(',')
+      end
+      only.split(',').map do |n|
+        if n.include?("-")
+          expand_range(n)
+        else
+          n.to_i
+        end
+      end.flatten.sort.uniq
+    end
+
+    def expand_range(string_range)
+      lower, upper = string_range.split("-").map(&:to_i).take(2).sort
+      Array.new(upper+1 - lower).fill { |i| i + lower }
+    end
+
     def default_array(option)
       o = option || []
       o = [o] unless o.is_a?(Array)
@@ -30,7 +51,7 @@ module Clash
     def yellowit(str)
       colorize(str, 'yellow')
     end
-    
+
     def redit(str)
       colorize(str, 'red')
     end
