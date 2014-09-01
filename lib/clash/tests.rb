@@ -12,19 +12,23 @@ module Clash
       @passed = []
       @failed = []
 
-      @options[:file]    ||= '.clash.yml'
       @options[:only]    ||= []
       @options[:exit]    ||= true
+      @options[:path]    ||= '.'
+      @options[:file]    ||= File.join(@options[:path], '.clash.yml')
 
       @tests = read_tests
     end
 
     def run
+
       @tests.each_with_index do |options, index|
         # If tests are limited, only run specified tests
         #
         next if options.nil?
-        run_test(options, index)
+        Dir.chdir(@options[:path]) do
+          run_test(options, index)
+        end
       end
 
       print_results

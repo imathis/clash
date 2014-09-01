@@ -57,6 +57,7 @@ end.parse!
 unless ARGV.empty?
   # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
   #
+  options[:path] = ARGV.shift if ARGV.first =~ /\D+/
   options[:only] = Clash::Helpers.expand_list_of_numbers ARGV
 end
 
