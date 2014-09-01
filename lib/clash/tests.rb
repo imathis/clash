@@ -3,10 +3,10 @@ module Clash
     include Helpers
 
     attr_accessor :tests
-    
+
     def initialize(options={})
       ENV['JEKYLL_ENV'] = 'test'
-      
+
       @options = options
       @results = []
       @passed = []
@@ -46,6 +46,7 @@ module Clash
     end
 
     def read_tests
+      return [] unless File.file?(@options[:file])
       tests = SafeYAML.load_file(@options[:file])
       index = 0
 
