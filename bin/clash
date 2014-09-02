@@ -12,13 +12,15 @@ clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
 
 Usage:
 
-  clash [tests] [options]
+  clash [path] [tests] [options]
 
   To run only specific tests, pass test numbers separated by commas.
 
-    $ clash 1     # run only the first test
-    $ clash 2,3   # run the second and third tests
-    $ clash 2-4   # run the second, third, and fourth tests
+    $ clash test   # Compare files in the 'test' directory
+    $ clash 1      # Run only the first test
+    $ clash 2,3    # Run the second and third tests
+    $ clash 2-4    # Run the second, third, and fourth tests
+    $ clash test 1 # Run the first test in the 'test' directory.
 
 Options:
 
@@ -38,7 +40,7 @@ CONFIG
 OptionParser.new do |opts|
   opts.banner = banner
 
-  opts.on("-f FILE", "--file FILE", "Use a specific test file (default: .clash.yml)") do |f|
+  opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
     options[:file] = f
   end
 
@@ -57,6 +59,7 @@ end.parse!
 unless ARGV.empty?
   # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
   #
+  options[:path] = ARGV.shift if ARGV.first =~ /\D+/
   options[:only] = Clash::Helpers.expand_list_of_numbers ARGV
 end
 

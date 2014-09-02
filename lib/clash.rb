@@ -10,4 +10,3 @@ module Clash
   autoload :Diff,    'clash/diff'
   autoload :Helpers, 'clash/helpers'
 end
-
