@@ -73,7 +73,7 @@ Of course, there is a lot more you can do.
 
 | Option           | Type           | Description                                              |
 |:-----------------|:---------------|:---------------------------------------------------------|
-| name             | String         | Include a descriptive name with test output.             |
+| title            | String         | Include a descriptive name with test output.             |
 | before           | String/Array   | Run system command(s) before running tests.              |
 | build            | Boolean        | Build the site with Jekyll.                              |
 | config           | Hash           | Configure Jekyll, Octopress or Ink plugins. (Info below) |
