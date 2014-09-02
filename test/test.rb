@@ -3,6 +3,8 @@ require 'clash'
 count = Clash::Tests.new().tests.size
 FileUtils.mkdir_p('_output')
 
+puts "Running #{count} tests..."
+
 (1..count).each do |t|
   system("clash #{t} > _output/#{t}")
 end

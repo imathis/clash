@@ -22,11 +22,11 @@ module Clash
 
     def run
 
-      @tests.each_with_index do |options, index|
-        # If tests are limited, only run specified tests
-        #
-        next if options.nil?
-        Dir.chdir(@options[:path]) do
+      Dir.chdir(@options[:path]) do
+        @tests.each_with_index do |options, index|
+          # If tests are limited, only run specified tests
+          #
+          next if options.nil?
           run_test(options, index)
         end
       end
