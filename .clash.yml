@@ -1,0 +1,2 @@
+before: ruby test.rb
+compare: test/_expected_output test/_output 

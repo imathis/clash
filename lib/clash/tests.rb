@@ -15,7 +15,7 @@ module Clash
       @options[:only]    ||= []
       @options[:exit]    ||= true
       @options[:path]    ||= '.'
-      @options[:file]    ||= File.join(@options[:path], '.clash.yml')
+      @options[:file]    ||= '.clash.yml'
 
       @tests = read_tests
     end

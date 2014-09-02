@@ -1,6 +1,6 @@
 require 'clash'
 
-count = Clash::Tests.new(path: 'test').tests.size
+count = Clash::Tests.new(path: 'test', file: 'test/.clash.yml').tests.size
 FileUtils.mkdir_p('test/_output')
 
 (1..count).each do |t|
@@ -16,7 +16,4 @@ end
 
   File.open("test/_output/#{f}", 'w') { |f| f.write(content) }
 end
-
-test = Clash::Tests.new(file: "test/.test.yml", path: 'test')
-test.run
 
