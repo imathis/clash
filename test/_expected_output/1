@@ -3,6 +3,7 @@ Configuration file: _config.yml
        Destination: _site
       Generating... 
                     done.
+ Auto-regeneration: disabled. Use --watch to enable.
 .
 
 Test summary:

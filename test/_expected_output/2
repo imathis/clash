@@ -4,6 +4,7 @@ Configuration file: _test1.yml
        Destination: _site
       Generating... 
                     done.
+ Auto-regeneration: disabled. Use --watch to enable.
 .
 
 Test summary:
