@@ -1,19 +1,19 @@
 require 'clash'
 
-count = Clash::Tests.new(path: 'test', file: 'test/.clash.yml').tests.size
-FileUtils.mkdir_p('test/_output')
+count = Clash::Tests.new().tests.size
+FileUtils.mkdir_p('_output')
 
 (1..count).each do |t|
-  system("clash test #{t} > test/_output/#{t}")
+  system("clash #{t} > _output/#{t}")
 end
 
 # substitute paths output from Jekyll
 %w{1 2}.each do |f|
-  content = File.open("test/_output/#{f}").read
+  content = File.open("_output/#{f}").read
   content = content.gsub(/Configuration file: .+\//, 'Configuration file: ') 
     .gsub(/Source: .+\//, 'Source: ') 
     .gsub(/Destination: .+\//, 'Destination: ')
 
-  File.open("test/_output/#{f}", 'w') { |f| f.write(content) }
+  File.open("_output/#{f}", 'w') { |f| f.write(content) }
 end
 
