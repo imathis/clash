@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.1.0 - 2014-09-01
+
+- Test ranges, e.g. `clash 2-4`
+- Run tests in a directory, e.g. `clash some_dir`
+
 ### 1.0.2 - 2014-07-13
 - Sets JEKYLL_ENV to 'test'
 

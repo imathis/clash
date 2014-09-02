@@ -23,15 +23,17 @@ Or install it yourself as:
 ## Usage
 
 ```
-clash [test] [options]
+clash [path] [test] [options]
 ```
 
 To run only specific tests, pass test numbers separated by commas.
 
 ```
-$ clash       # run all tests
-$ clash 1     # run only the first test
-$ clash 2,3   # run the second and third tests
+$ clash test     # Compare files in the 'test' directory
+$ clash          # run all tests
+$ clash 1        # run only the first test
+$ clash 2,3      # run the second and third tests
+$ clash test 1   # Run the first test in the 'test' directory.
 ```
 
 ### CLI options
