@@ -3,4 +3,4 @@ rvm:
   - 2.0.0
   - 1.9.3
 script: 
-  - bundle exec clash --file.test.yml
+  - bundle exec clash
