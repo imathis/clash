@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.0 - 2014-11-23
+
+- Added Tasks: reuse system commands without duplication.
+
 ### 1.1.0 - 2014-09-01
 
 - Test ranges, e.g. `clash 2-4`

@@ -126,6 +126,29 @@ In this example:
 
 This will not overwrite existing files as they will be backed up an restored after tests.
 
+
+## Tasks
+
+If you find yourself adding repetitive before or after commands, you can create a task to reference these commands for reuse in other tests. Here's an example clash config file.
+
+```
+-
+  tasks:
+    reset_site: 
+      - rm -rf _site
+    remove_caches:
+      - rm -rf .gist-cache
+      - echo "Gist cache removed"
+-
+  before: remove_caches
+  build: true
+  after: 
+    - reset_site
+    - echo "Gist build complete"
+```
+
+Notice the first test isn't a test at all. It's a hash of tasks, each with it's own defined command(s). The test below calls tasks in it's before and after blocks. Note that tasks can be used along with any other system command in before or after blocks.
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/clash/fork )
