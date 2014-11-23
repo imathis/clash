@@ -147,7 +147,7 @@ If you find yourself adding repetitive before or after commands, you can create 
     - echo "Gist build complete"
 ```
 
-Notice the first test isn't a test at all. It's a hash of tasks, each with it's own defined command(s). The test below calls tasks in it's before and after blocks. Note that tasks can be used along with any other system command in before or after blocks.
+Notice the first test isn't a test at all. It's a hash of tasks, each with its own defined command(s). The test below calls tasks in its before and after blocks. Note that tasks can be used along with any other system command in before or after blocks.
 
 ## Contributing
 
