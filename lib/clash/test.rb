@@ -80,7 +80,13 @@ module Clash
 
     def system_cmd(cmds)
       cmds = default_array(cmds)
-      cmds.each {|cmd| system(cmd) }
+      cmds.each {|cmd| 
+        if @options['tasks'].include?(cmd)
+          system_cmd(@options['tasks'][cmd])
+        else
+          system(cmd) 
+        end
+      }
     end
 
     def compare

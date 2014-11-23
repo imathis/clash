@@ -1,4 +1,9 @@
 -
+  tasks:
+    test_tasks:
+      - echo "testing a task"
+      - echo "testing another task"
+-
   title: Standard build
   build: true
   compare: _site/index.html _expected/default.html
@@ -50,3 +55,7 @@
 -
   title: (Should fail) File shouldn't exist (and does)
   enforce_missing: a/1.txt
+
+-
+  title: testing tasks
+  before: test_tasks
