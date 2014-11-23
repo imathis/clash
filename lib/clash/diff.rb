@@ -82,7 +82,7 @@ module Clash
       file_exists = File.exists?(f)
 
       if !file_exists
-        @test_failures << "#{redit('File not found:')} #{f}"
+        @test_failures << "#{redit('File not found:')} #{f}\n"
       end
 
       file_exists

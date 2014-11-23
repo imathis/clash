@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.1 - 2014-11-23
+
+- Fixed missing newline on "File not fount" output.
+
 ### 1.2.0 - 2014-11-23
 
 - Added Tasks: reuse system commands without duplication.
