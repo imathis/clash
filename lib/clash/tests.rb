@@ -11,6 +11,7 @@ module Clash
       @results = []
       @passed = []
       @failed = []
+      @tasks = {}
 
       @options[:only]    ||= []
       @options[:exit]    ||= true
@@ -38,6 +39,7 @@ module Clash
 
       options['index'] = index + 1
       options['context'] = @options[:context]
+      options['tasks'] = @tasks
 
       results = Test.new(options).run
 
@@ -53,21 +55,29 @@ module Clash
       return [] unless File.file?(@options[:file])
       tests = SafeYAML.load_file(@options[:file])
       index = 0
+      delete_tests = []
 
-      default_array(tests).map do |test|
-        index += 1
-
-        # Admit all tests if no tests are excluded
-        if @options[:only].empty?
-          test
-        # Only admit selected tests
-        elsif @options[:only].include?(index)
-          test
-        # Remove tests not selected
+      tests = default_array(tests).map do |test|
+        if !test['tasks'].nil?
+          @tasks.merge! test['tasks']
+          delete_tests << test
         else
-          nil
+          index += 1
+
+          # Admit all tests if no tests are excluded
+          if @options[:only].empty?
+            test
+          # Only admit selected tests
+          elsif @options[:only].include?(index)
+            test
+          # Remove tests not selected
+          else
+            nil
+          end
         end
       end
+      tests - [delete_tests]
+
     end
 
     def print_results
