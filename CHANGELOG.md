@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.3.0 - 2014-11-28
+
+- Added `--list` option to list tests' number and title.
+
 ### 1.2.1 - 2014-11-23
 
 - Fixed missing newline on "File not fount" output.

@@ -5,11 +5,14 @@ FileUtils.mkdir_p('_output')
 
 puts "Running #{count} tests..."
 
+system("clash --list > _output/0")
+
 (1..count).each do |t|
   system("clash #{t} > _output/#{t}")
 end
 
-# substitute paths output from Jekyll
+# On tests 1 & 2, substitute Jekyll output containing absolute paths
+# This allows tests to pass on different systems
 %w{1 2}.each do |f|
   content = File.open("_output/#{f}").read
   content = content.gsub(/Configuration file: .+\//, 'Configuration file: ') 

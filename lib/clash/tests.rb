@@ -21,6 +21,21 @@ module Clash
       @tests = read_tests
     end
 
+    def list
+      @tests.each_with_index do |options, index|
+        # If tests are limited, only run specified tests
+        #
+        next if options.nil?
+        list_test(options, index)
+      end
+    end
+
+    def list_test(options, index)
+      number = boldit((index + 1).to_s.rjust(3))
+      title = options['title'] || "Untitled test"
+      puts "#{number}) #{title}"
+    end
+
     def run
 
       Dir.chdir(@options[:path]) do

@@ -42,6 +42,7 @@ $ clash test 1   # Run the first test in the 'test' directory.
 -f, --file    FILE      Use a specific test file (default: .clash.yml)
 -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
 -h, --help              show this message
+-l, --list              Print a list of tests' numbers and titles (does not run tests)
 ```
 
 Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
