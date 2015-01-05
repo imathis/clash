@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.3.1 - 2015-01-05
+
+- Added support for Octopress docs
+
 ### 1.3.0 - 2014-11-28
 
 - Added `--list` option to list tests' number and title.
