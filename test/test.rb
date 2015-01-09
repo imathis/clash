@@ -1,6 +1,6 @@
 require 'clash'
 
-count = Clash::Tests.new().tests.size
+count = Clash::Tests.new.tests.size
 FileUtils.mkdir_p('_output')
 
 puts "Running #{count} tests..."
@@ -15,8 +15,8 @@ end
 # This allows tests to pass on different systems
 %w{1 2}.each do |f|
   content = File.open("_output/#{f}").read
-  content = content.gsub(/Configuration file: .+\//, 'Configuration file: ') 
-    .gsub(/Source: .+\//, 'Source: ') 
+  content = content.gsub(/Configuration file: .+\//, 'Configuration file: ')
+    .gsub(/Source: .+\//, 'Source: ')
     .gsub(/Destination: .+\//, 'Destination: ')
 
   File.open("_output/#{f}", 'w') { |f| f.write(content) }
