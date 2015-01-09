@@ -36,11 +36,11 @@ module Clash
     end
 
     def system(*cmd)
-      Kernel.system("#{cmd.join(' ')} > #{output_file}")
-    end
-
-    def output_file
-      @output_file ||= (ENV['DEBUG'] ? '/dev/stdout' : '/dev/null')
+      if ENV['DEBUG']
+        Kernel.system cmd.join(' ')
+      else
+        Kernel.system("#{cmd.join(' ')} > /dev/null")
+      end
     end
 
     # Print a single character without a newline
