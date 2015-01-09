@@ -5,10 +5,14 @@ module Clash
     attr_accessor :tests
 
     def initialize(options={})
-      ENV['JEKYLL_ENV'] = 'test'
-      ENV['DEBUG'] = 'true' if options[:debug]
-
       @options = options
+
+      ENV['JEKYLL_ENV'] = 'test'
+
+      if @options[:debug]
+        ENV['DEBUG'] = 'true'
+      end
+
       @results = []
       @passed = []
       @failed = []
