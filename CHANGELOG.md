@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.4.0 - 2015-01-09
+
+- Silenced system output and tests are less noisy. [#10](https://github.com/imathis/clash/pull/10) - Thanks @parkr!
+- Added `--debug` option so you can, Bring the noise!
+
 ### 1.3.1 - 2015-01-05
 
 - Added support for Octopress docs
