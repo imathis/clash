@@ -36,11 +36,10 @@ module Clash
     end
 
     def system(*cmd)
-      if ENV['DEBUG']
-        Kernel.system cmd.join(' ')
-      else
-        Kernel.system("#{cmd.join(' ')} > /dev/null")
-      end
+      cmd = cmd.join(' ')
+      cmd += " > /dev/null" unless ENV['DEBUG']
+
+      Kernel.system cmd
     end
 
     # Print a single character without a newline
