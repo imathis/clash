@@ -6,6 +6,7 @@ module Clash
 
     def initialize(options={})
       ENV['JEKYLL_ENV'] = 'test'
+      ENV['DEBUG'] = 'true' if options[:debug]
 
       @options = options
       @results = []

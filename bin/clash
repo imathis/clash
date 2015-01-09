@@ -52,6 +52,10 @@ OptionParser.new do |opts|
     options[:list] = l
   end
 
+  opts.on("-d", "--debug", "Display output from system commands") do |d|
+    options[:debug] = d
+  end
+
   opts.on("-h", "--help", "Show this message") do |h|
     puts opts
     puts config_info
