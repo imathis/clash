@@ -40,7 +40,7 @@ module Clash
       # Don't ouput to /dev/null if in debug mode
       # or if a command supplies its own ouput
       if !ENV['DEBUG'] && !(cmd =~ / > /)
-        cmd += " > /dev/null"
+        cmd << " > /dev/null"
       end
 
       Kernel.system cmd
