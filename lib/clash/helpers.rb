@@ -37,7 +37,11 @@ module Clash
 
     def system(*cmd)
       cmd = cmd.join(' ')
-      cmd += " > /dev/null" unless ENV['DEBUG']
+      # Don't ouput to /dev/null if in debug mode
+      # or if a command supplies its own ouput
+      if !ENV['DEBUG'] && !(cmd =~ / > /)
+        cmd += " > /dev/null"
+      end
 
       Kernel.system cmd
     end
