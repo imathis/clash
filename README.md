@@ -153,7 +153,7 @@ Notice the first test isn't a test at all. It's a hash of tasks, each with its o
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/clash/fork )
+1. Fork it ( https://github.com/imathis/clash/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
