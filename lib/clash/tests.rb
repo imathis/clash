@@ -21,7 +21,7 @@ module Clash
       @options[:only]    ||= []
       @options[:exit]    ||= true
       @options[:path]    ||= '.'
-      @options[:file]    ||= '.clash.yml'
+      @options[:file]    ||= '_clash.yml'
 
       @tests = read_tests
     end
@@ -72,8 +72,7 @@ module Clash
     end
 
     def read_tests
-      return [] unless File.file?(@options[:file])
-      tests = SafeYAML.load_file(@options[:file])
+      tests = read_config
       index = 0
       delete_tests = []
 
@@ -98,6 +97,36 @@ module Clash
       end
       tests - [delete_tests]
 
+    end
+
+    def read_config
+      # Find the config file
+      path = config_path
+
+      if !path
+        # Look for legacy file name
+        path = config_path('.clash.yml')
+      end
+      
+      # If config file still not found, complain
+      if !path
+        raise "Config file #{@options[:file]} not found."
+      end
+
+      SafeYAML.load_file(path)
+    end
+
+    def config_path(file=nil)
+      file ||= @options[:file]
+      path = File.join('./', @options[:path])
+      paths = []
+
+      (path.count('/') + 1).times do
+        paths << File.join(path, file)
+        path.sub!(/\/[^\/]+$/, '')
+      end
+
+      paths.find {|p| File.file?(p) }
     end
 
     def print_results

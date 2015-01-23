@@ -8,27 +8,28 @@ module Clash
       @test_failures = []
       @options  = options
       @options['config'] ||= {}
+      @options['dir'] ||= '.'
       @cleanup = []
     end
 
     def run
-      system_cmd(@options['before'])
-      config
-      build if @options['build']
-      compare
-      enforce_missing
-      system_cmd(@options['after'])
-      cleanup_config
+      Dir.chdir(@options['dir']) do
+        system_cmd(@options['before'])
+        config
+        build if @options['build']
+        compare
+        enforce_missing
+        system_cmd(@options['after'])
+        cleanup_config
+      end
       print_result
       results
     end
 
     def config
       @options['config'].each do |name, file|
-        case name
-        when 'jekyll' then next
-        when 'octopress' then config_octopress(file)
-        else config_plugin(name, file)
+        if name != 'jekyll'
+          config_plugin(name, file)
         end
       end
     end
@@ -70,12 +71,13 @@ module Clash
     end
 
     def build
+      options = "--trace"
+
       if jekyll_config = @options['config']['jekyll']
-        configs = default_array(jekyll_config).join(',')
-        system("jekyll build --trace --config #{configs}")
-      else
-        system("jekyll build --trace")
+        options << " --config #{default_array(jekyll_config).join(',')}"
       end
+
+      system "jekyll build #{options}"
     end
 
     def system_cmd(cmds)

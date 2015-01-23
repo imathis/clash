@@ -11,7 +11,7 @@ banner = <<-BANNER
 clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
 
 Usage:
-
+  # Run tests
   clash [path] [tests] [options]
 
   To run only specific tests, pass test numbers separated by commas.
@@ -21,6 +21,9 @@ Usage:
     $ clash 2,3    # Run the second and third tests
     $ clash 2-4    # Run the second, third, and fourth tests
     $ clash test 1 # Run the first test in the 'test' directory.
+  
+  # Add testing scaffold
+  clash init [path] [options]
 
 Options:
 
@@ -40,20 +43,29 @@ CONFIG
 OptionParser.new do |opts|
   opts.banner = banner
 
-  opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
-    options[:file] = f
-  end
+  if ARGV.first == 'init'
+    options[:init] = true
+    options[:path] = ARGV[1]
 
-  opts.on("-c", "--context NUMBER", Integer, "On diff errors, show NUMBER of lines of surrounding context (default: 2)") do |context|
-    options[:context] = context
-  end
+    opts.on("-f", "--force", "Overwrite existing content") do |f|
+      options[:force] = f
+    end
+  else
+    opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
+      options[:file] = f
+    end
 
-  opts.on("-l", "--list", "Print a list of tests' numbers and titles") do |l|
-    options[:list] = l
-  end
+    opts.on("-c", "--context NUMBER", Integer, "On diff errors, show NUMBER of lines of surrounding context (default: 2)") do |context|
+      options[:context] = context
+    end
 
-  opts.on("-d", "--debug", "Display output from system commands") do |d|
-    options[:debug] = d
+    opts.on("-l", "--list", "Print a list of tests' numbers and titles") do |l|
+      options[:list] = l
+    end
+
+    opts.on("-d", "--debug", "Display output from system commands") do |d|
+      options[:debug] = d
+    end
   end
 
   opts.on("-h", "--help", "Show this message") do |h|
@@ -64,15 +76,19 @@ OptionParser.new do |opts|
 
 end.parse!
 
-unless ARGV.empty?
-  # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
-  #
-  options[:path] = ARGV.shift if ARGV.first =~ /\D+/
-  options[:only] = Clash::Helpers.expand_list_of_numbers ARGV
-end
+if options[:init]
+  Clash::Scaffold.new(options)
+elsif !options[:help]
 
-unless options[:help]
+  unless ARGV.empty?
+    # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
+    #
+    options[:path] = ARGV.shift if ARGV.first =~ /\D+/
+    options[:only] = Clash::Helpers.expand_list_of_numbers ARGV
+  end
+
   tests = Clash::Tests.new(options)
+
   if options[:list]
     tests.list
   else
