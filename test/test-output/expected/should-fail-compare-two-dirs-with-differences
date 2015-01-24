@@ -2,16 +2,16 @@ F
 
 Failures:
 
-8) (Should fail) Compare two dirs with differences
+7) (Should fail) Compare two dirs with differences
 ========================================================
 
 Missing from directory a:
   - 3.txt
 
-Missing from directory _c:
+Missing from directory c:
   - 2.txt
 
-Compared a/1.txt to _c/1.txt:
+Compared a/1.txt to c/1.txt:
 
    Biltong magna excepteur pork dolore, turducken laboris veniam eiusmod shank. Cons
    ectetur consequat exercitation pork belly tri-tip in. Biltong meatball velit, rep
@@ -32,4 +32,4 @@ Compared a/1.txt to _c/1.txt:
 Test summary:
  Tests run: 1
  Passed 0 
- Failed 1 - Tests: 8
+ Failed 1 - Tests: 7

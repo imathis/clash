@@ -2,10 +2,10 @@ F
 
 Failures:
 
-6) (Should fail) Compare files with differences
+5) (Should fail) Compare files with differences
 ========================================================
 
-Compared a/1.txt to _c/1.txt:
+Compared a/1.txt to c/1.txt:
 
    Biltong magna excepteur pork dolore, turducken laboris veniam eiusmod shank. Cons
    ectetur consequat exercitation pork belly tri-tip in. Biltong meatball velit, rep
@@ -22,7 +22,7 @@ Compared a/1.txt to _c/1.txt:
    ecat. Pork spare ribs consectetur sint flank veniam.
 
 
-Compared _site/a/1.txt to _c/1.txt:
+Compared a/1.txt to c/1.txt:
 
    Biltong magna excepteur pork dolore, turducken laboris veniam eiusmod shank. Cons
    ectetur consequat exercitation pork belly tri-tip in. Biltong meatball velit, rep
@@ -43,4 +43,4 @@ Compared _site/a/1.txt to _c/1.txt:
 Test summary:
  Tests run: 1
  Passed 0 
- Failed 1 - Tests: 6
+ Failed 1 - Tests: 5

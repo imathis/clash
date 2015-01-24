@@ -1,6 +1,5 @@
 Configuration file: _config.yml
-Configuration file: _test1.yml
-            Source: test
+            Source: jekyll
        Destination: _site
       Generating... 
                     done.
@@ -9,5 +8,5 @@ Configuration file: _test1.yml
 
 Test summary:
  Tests run: 1
- Passed 1 - Tests: 2
+ Passed 1 - Tests: 1
  Failed 0 

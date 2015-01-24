@@ -1,24 +1,23 @@
 require 'clash'
 
-count = Clash::Tests.new.tests.size
-FileUtils.mkdir_p('_output')
+tests = Clash::Tests.new.tests
+titles = tests.dup.map {|t| t['title'].gsub(/ /,'-').gsub(/[^\w-]/,'').downcase }
 
-puts "Running #{count} tests..."
+output = "test-output/output"
+FileUtils.rm_r(output, :force => true)
+FileUtils.mkdir(output)
 
-system("clash --list > _output/0")
+puts "Running #{tests.size} tests..."
 
-(1..count).each do |t|
-  system("clash #{t} > _output/#{t}")
-end
+system("clash --list > #{output}/list")
 
-# On tests 1 & 2, substitute Jekyll output containing absolute paths
-# This allows tests to pass on different systems
-%w{1 2}.each do |f|
-  content = File.open("_output/#{f}").read
-  content = content.gsub(/Configuration file: .+\//, 'Configuration file: ')
+titles.each_with_index do |t, index|
+  result = `clash #{index + 1} -d`
+
+  # Swap out paths output by Jekyll tests
+  result = result.gsub(/Configuration file: .+\//, 'Configuration file: ')
     .gsub(/Source: .+\//, 'Source: ')
     .gsub(/Destination: .+\//, 'Destination: ')
 
-  File.open("_output/#{f}", 'w') { |f| f.write(content) }
+  File.open(File.join(output, t), 'w') { |f| f.write(result) }
 end
-

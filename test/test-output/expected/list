@@ -2,7 +2,7 @@
   2) Build Jekyll with alternate configuration
   3) Test Octopress Ink configuration
   4) Compare matching files
-  6) (Should fail) Compare files with differences
+  5) (Should fail) Compare files with differences
   6) Compare two matching dirs
   7) (Should fail) Compare two dirs with differences
   8) File shouldn't exist.

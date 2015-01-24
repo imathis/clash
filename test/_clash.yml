@@ -5,12 +5,12 @@
       - echo "testing another task"
 -
   title: Standard build
-    dir: jekyll
+  dir: jekyll
   build: true
-  compare: _site/index.html _expected/default.html
+  compare: _site/index.html _expected/index.html
 -
   title: Build Jekyll with alternate configuration
-    dir: jekyll
+  dir: jekyll
   build: true
   config:
     jekyll: 
@@ -19,7 +19,7 @@
   compare: _site/index.html _expected/alternate.html
 -
   title: Test Octopress Ink configuration
-    dir: jekyll
+  dir: jekyll
   config:
     feed: _test1.yml
   before: cat _plugins/feed/config.yml
@@ -28,33 +28,33 @@
     - cat _plugins/feed/config.yml.bak
 -
   title: Compare matching files
-    dir: jekyll
+  dir: compare-files
   compare:
-    - a/1.txt _site/a/1.txt
-    - a/2.txt _site/a/2.txt
+    - a/1.txt b/1.txt
+    - a/2.txt b/2.txt
 -
   title: (Should fail) Compare files with differences
-    dir: jekyll
+  dir: compare-files
   compare:
-    - a/1.txt _c/1.txt
-    - _site/a/1.txt _c/1.txt
+    - a/1.txt c/1.txt
+    - a/1.txt c/1.txt
 -
   title: Compare two matching dirs
-    dir: jekyll
-  compare: a _site/a
+  dir: compare-files
+  compare: a b
 -
   title: (Should fail) Compare two dirs with differences
-    dir: jekyll
-  compare: a _c
+  dir: compare-files
+  compare: a c
 -
   title: File shouldn't exist.
-    dir: jekyll
+  dir: compare-files
   enforce_missing:
     - unicorns.txt
     - dragons.txt
 -
   title: (Should fail) File shouldn't exist (and does)
-    dir: jekyll
+  dir: compare-files
   enforce_missing: a/1.txt
 
 -

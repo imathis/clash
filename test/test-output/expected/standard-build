@@ -1,5 +1,5 @@
 Configuration file: _config.yml
-            Source: test
+            Source: jekyll
        Destination: _site
       Generating... 
                     done.

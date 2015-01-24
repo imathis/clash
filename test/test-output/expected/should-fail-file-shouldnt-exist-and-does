@@ -2,7 +2,7 @@ F
 
 Failures:
 
-10) (Should fail) File shouldn't exist (and does)
+9) (Should fail) File shouldn't exist (and does)
 ========================================================
 
 File a/1.txt shouldn't exist.
@@ -12,4 +12,4 @@ File a/1.txt shouldn't exist.
 Test summary:
  Tests run: 1
  Passed 0 
- Failed 1 - Tests: 10
+ Failed 1 - Tests: 9

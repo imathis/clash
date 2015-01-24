@@ -42,7 +42,6 @@ module Clash
     end
 
     def run
-
       Dir.chdir(@options[:path]) do
         @tests.each_with_index do |options, index|
           # If tests are limited, only run specified tests
@@ -100,14 +99,9 @@ module Clash
     end
 
     def read_config
-      # Find the config file
-      path = config_path
+      # Find the config file (fall back to legacy filename)
+      path = config_path || config_path('.clash.yml')
 
-      if !path
-        # Look for legacy file name
-        path = config_path('.clash.yml')
-      end
-      
       # If config file still not found, complain
       if !path
         raise "Config file #{@options[:file]} not found."
