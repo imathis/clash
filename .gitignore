@@ -23,5 +23,5 @@ mkmf.log
 _site
 _output
 .DS_Store
-test-output/output
-test-init
+test/test-output/output
+init-tests
