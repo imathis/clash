@@ -17,9 +17,11 @@ module Clash
         system_cmd(@options['before'])
         config
         build if @options['build']
-        compare
-        enforce_missing
-        system_cmd(@options['after'])
+        unless @options['build_only']
+          compare
+          enforce_missing
+          system_cmd(@options['after'])
+        end
         cleanup_config
       end
       print_result

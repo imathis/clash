@@ -50,6 +50,10 @@ OptionParser.new do |opts|
       options[:force] = f
     end
   else
+    opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions.") do |b|
+      options[:build_only] = b
+    end
+
     opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
       options[:file] = f
     end

@@ -59,6 +59,7 @@ module Clash
       options['index'] = index + 1
       options['context'] = @options[:context]
       options['tasks'] = @tasks
+      options['build_only'] = @options[:build_only]
 
       results = Test.new(options).run
 
