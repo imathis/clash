@@ -15,9 +15,7 @@ titles.each_with_index do |t, index|
   result = `clash #{index + 1} -d`
 
   # Swap out paths output by Jekyll tests
-  result = result.gsub(/Configuration file: .+\//, 'Configuration file: ')
-    .gsub(/Source: .+\//, 'Source: ')
-    .gsub(/Destination: .+\//, 'Destination: ')
+  result = result.gsub(File.join(Dir.pwd,''), '')
 
   File.open(File.join(output, t), 'w') { |f| f.write(result) }
 end

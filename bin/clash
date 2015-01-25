@@ -44,8 +44,7 @@ OptionParser.new do |opts|
   opts.banner = banner
 
   if ARGV.first == 'init'
-    options[:init] = true
-    options[:path] = ARGV[1]
+    options[:init] = ARGV.shift
 
     opts.on("-f", "--force", "Overwrite existing content") do |f|
       options[:force] = f
@@ -77,7 +76,7 @@ OptionParser.new do |opts|
 end.parse!
 
 if options[:init]
-  Clash::Scaffold.new(options)
+  Clash::Scaffold.new(ARGV, options)
 elsif !options[:help]
 
   unless ARGV.empty?

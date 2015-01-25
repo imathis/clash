@@ -39,14 +39,14 @@ $ clash test 1   # Run the first test in the 'test' directory.
 ### CLI options
   
 ```
--f, --file    FILE      Use a specific test file (default: .clash.yml)
+-f, --file    FILE      Use a specific test file (default: _clash.yml)
 -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
 -l, --list              Print a list of tests' numbers and titles (does not run tests)
 -d, --debug             Display output from system commands in tests
 -h, --help              Show this message
 ```
 
-Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
+Clash reads its configuration from a _clash.yml file. Use the --file
 option to choose a different configuration file.
 
 ### Example usage:
@@ -65,6 +65,7 @@ If you have a simple liquid tag you want to test:
 Clash will build your site with Jekyll, and compare the contents of _expected/ to _site/.
 
 ```
+title: Build test
 build: true
 compare: _expected _site
 ```
@@ -98,15 +99,15 @@ To run multiple tests each test should be an array, for example:
 
 ```
 -
-  name: Check site build
+  title: Check site build
   build: true
   compare: _expected _site
 -
-  name: Check asset compression
+  title: Check asset compression
   compare: _cdn_expected _cdn_build
 ```
 
-Note: When running multiple tests, adding a name can help the reading of test failures.
+Note: When running multiple tests, adding a title can help the reading of test failures.
 
 ### Configuring Jekyll, Octopress and Octopress Ink plugins
 
@@ -142,6 +143,7 @@ If you find yourself adding repetitive before or after commands, you can create 
       - rm -rf .gist-cache
       - echo "Gist cache removed"
 -
+  title: Test build
   before: remove_caches
   build: true
   after: 

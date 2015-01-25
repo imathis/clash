@@ -7,4 +7,5 @@
   7) (Should fail) Compare two dirs with differences
   8) File shouldn't exist.
   9) (Should fail) File shouldn't exist (and does)
- 10) testing tasks
+ 10) Testing tasks
+ 11) Testing init

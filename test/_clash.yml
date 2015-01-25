@@ -1,15 +1,13 @@
--
-  tasks:
+- tasks:
     test_tasks:
       - echo "testing a task"
       - echo "testing another task"
--
-  title: Standard build
+- title: Standard build
   dir: jekyll
   build: true
   compare: _site/index.html _expected/index.html
--
-  title: Build Jekyll with alternate configuration
+
+- title: Build Jekyll with alternate configuration
   dir: jekyll
   build: true
   config:
@@ -17,8 +15,8 @@
       - _config.yml
       - _test1.yml
   compare: _site/index.html _expected/alternate.html
--
-  title: Test Octopress Ink configuration
+
+- title: Test Octopress Ink configuration
   dir: jekyll
   config:
     feed: _test1.yml
@@ -26,37 +24,40 @@
   after: 
     - cat _plugins/feed/config.yml
     - cat _plugins/feed/config.yml.bak
--
-  title: Compare matching files
+
+- title: Compare matching files
   dir: compare-files
   compare:
     - a/1.txt b/1.txt
     - a/2.txt b/2.txt
--
-  title: (Should fail) Compare files with differences
+
+- title: (Should fail) Compare files with differences
   dir: compare-files
   compare:
     - a/1.txt c/1.txt
     - a/1.txt c/1.txt
--
-  title: Compare two matching dirs
+
+- title: Compare two matching dirs
   dir: compare-files
   compare: a b
--
-  title: (Should fail) Compare two dirs with differences
+
+- title: (Should fail) Compare two dirs with differences
   dir: compare-files
   compare: a c
--
-  title: File shouldn't exist.
+
+- title: File shouldn't exist.
   dir: compare-files
   enforce_missing:
     - unicorns.txt
     - dragons.txt
--
-  title: (Should fail) File shouldn't exist (and does)
+
+- title: (Should fail) File shouldn't exist (and does)
   dir: compare-files
   enforce_missing: a/1.txt
 
--
-  title: testing tasks
+- title: Testing tasks
   before: test_tasks
+
+- title: Testing init
+  before: clash init init-tests --force
+  compare: init-tests ../scaffold
