@@ -20,12 +20,23 @@ Or install it yourself as:
 
     $ gem install clash
 
-## Setup
+## Example usage:
+
+If you have a simple liquid tag you want to test:
+
+ 1. Run `$ clash init test`  which generates a test scaffold.
+ 2. Modify the Jekyll site in `test/scenario-1` to use your plugin.
+ 3. Run `$ clash test`, ignore failures, and check that `test/scenario-1/_site` looks right.
+ 4. Copy `_site` to `_expected`.
+ 5. Run `$ clash test` and the test will pass.
+ 6. **Code with confidence!**
+
+## Testing scaffold
 
 To get started, you can add a test scaffold with the `init` command.
 
 ```
-$ clash init [path] [options]
+$ clash init [path] [--force]
 ```
 
 For example, `$ clash init test` will generate a ready-to-test Jekyll site scaffold in the `test` directory. Here's what it
@@ -33,12 +44,12 @@ looks like:
 
 ```
 test/
-  scenario-1/       # Directory containing a Jekyll site 
-    _expected       # Build comparison directory
-      index.html    # FIle to compare
-    index.html      # Source file
-    _config.yml     # Jekyll configuration
   _clash.yml        # Clash test list
+  scenario-1/       # Directory containing a Jekyll site 
+    _config.yml     # Jekyll configuration
+    _expected       # Build comparison directory
+      index.html    # File to compare
+    index.html      # Source file for testing your site
 ```
 
 The `_clash.yml` file contains a simple test which looks like this.
@@ -86,30 +97,7 @@ $ clash test 1   # Run the first test in the 'test' directory.
 Clash reads its configuration from a _clash.yml file. Use the --file
 option to choose a different configuration file.
 
-### Example usage:
-
-If you have a simple liquid tag you want to test:
-
- 1. Create a simple Jekyll site with tags.
- 2. Create one or more pages which test the tags features.
- 3. Manually check that the compiled site looks right.
- 4. Copy `_site` to `_expected`.
- 5. Create a test file like the one below.
- 6. **Code with confidence!**
-
-### Simple configuration:
-
-Clash will build your site with Jekyll, and compare the contents of _expected/ to _site/.
-
-```
-title: Build test
-build: true
-compare: _expected _site
-```
-
-Of course, there is a lot more you can do.
-
-## Configuration
+## Clash file configuration
 
 | Option           | Type           | Description                                              |
 |:-----------------|:---------------|:---------------------------------------------------------|
