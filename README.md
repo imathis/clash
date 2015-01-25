@@ -1,6 +1,6 @@
 # Clash
 
-Clash is a super simple testing framework for static sites.
+Clash is an integration test framework designed for Jekyll developers.
 
 [![Build Status](https://travis-ci.org/imathis/clash.svg)](https://travis-ci.org/imathis/clash)
 [![Gem Version](http://img.shields.io/gem/v/clash.svg)](https://rubygems.org/gems/clash)
@@ -20,10 +20,47 @@ Or install it yourself as:
 
     $ gem install clash
 
+## Setup
+
+To get started, you can add a test scaffold with the `init` command.
+
+```
+$ clash init [path] [options]
+```
+
+For example, `$ clash init test` will generate a ready-to-test Jekyll site scaffold in the `test` directory. Here's what it
+looks like:
+
+```
+test/
+  scenario-1/       # Directory containing a Jekyll site 
+    _expected       # Build comparison directory
+      index.html    # FIle to compare
+    index.html      # Source file
+    _config.yml     # Jekyll configuration
+  _clash.yml        # Clash test list
+```
+
+The `_clash.yml` file contains a simple test which looks like this.
+
+```
+- 
+  title: Test Build
+  dir: scenario-1
+  build: true
+  compare: _expected _site
+```
+
+Now when you run `$ clash` from the test directory Jekyll will build the site in `scenario-1` and compare
+`scenario-1/_expected` to `scenario-1/_site`, showing any differences between the directories. Now you can just modify the
+Jekyll site to use a plugin you are developing and test the output.
+
+Read on to learn about running and configuring tests.
+
 ## Usage
 
 ```
-clash [path] [test] [options]
+$ clash [path] [test] [options]
 ```
 
 To run only specific tests, pass test numbers separated by commas.

@@ -16,7 +16,7 @@ if defined? Octopress::Docs
   Octopress::Docs.add({
     name:        "Clash",
     gem:         "clash",
-    description: "A super simple testing framework for static sites.",
+    description: "Clash is an integration test framework designed for Jekyll developers",
     path:        File.expand_path(File.join(File.dirname(__FILE__), "../")),
     source_url:  "https://github.com/imathis/clash",
     version:     Clash::VERSION
