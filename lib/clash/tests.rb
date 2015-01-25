@@ -101,14 +101,12 @@ module Clash
 
     def read_config
       # Find the config file (fall back to legacy filename)
-      path = config_path || config_path('.clash.yml')
-
-      # If config file still not found, complain
-      if !path
+      if path = config_path || config_path('.clash.yml')
+        SafeYAML.load_file(path)
+      else
+        # If config file still not found, complain
         raise "Config file #{@options[:file]} not found."
       end
-
-      SafeYAML.load_file(path)
     end
 
     def config_path(file=nil)
