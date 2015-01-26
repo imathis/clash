@@ -61,3 +61,6 @@
 - title: Testing init
   before: clash init init-tests --force
   compare: init-tests ../scaffold
+
+- title: Test line numbers
+  before: clash :29-:40 --list
