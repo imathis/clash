@@ -23,12 +23,13 @@ module Clash
       @options[:path]    ||= '.'
       @options[:file]    ||= '_clash.yml'
 
+      @clashfile = read_config
       @tests = read_tests
     end
 
     def list
       @tests.each_with_index do |options, index|
-        # If tests are limited, only run specified tests
+        # If tests are limited, only show specified tests
         #
         next if options.nil?
         list_test(options, index)
@@ -72,11 +73,11 @@ module Clash
     end
 
     def read_tests
-      tests = read_config
       index = 0
       delete_tests = []
+      @options[:only] = expand_list_of_numbers(@options[:only])
 
-      tests = default_array(tests).map do |test|
+      tests = default_array(@clashfile).map do |test|
         if !test['tasks'].nil?
           @tasks.merge! test['tasks']
           delete_tests << test
@@ -102,6 +103,7 @@ module Clash
     def read_config
       # Find the config file (fall back to legacy filename)
       if path = config_path || config_path('.clash.yml')
+        read_test_line_numbers(path)
         SafeYAML.load_file(path)
       else
         # If config file still not found, complain

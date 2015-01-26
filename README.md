@@ -41,16 +41,25 @@ This example illustrates a simple test scenario, but Clash can also:
 ## Running tests
 
 ```
-$ clash [path] [test] [options]
+$ clash [path] [tests] [options]
 ```
 
 To run only specific tests, pass test numbers separated by commas.
 
 ```
-$ clash test     # Compare files in the 'test' directory
-$ clash          # run all tests
-$ clash 1        # run only the first test
-$ clash 2,3      # run the second and third tests
+$ clash          # Run all tests.
+$ clash 1        # Run only the first test.
+$ clash 2,3      # Run the second and third tests.
+$ clash 2-4      # Run the second, third, and fourth tests
+$ clash :10      # Run the test on line 10
+$ clash :10-:35  # Run all tests from line 10 to 35
+```
+
+Typically the clash file is kept in the same directory as the tests. If you are in that directory, you can run `$ clash` and it will run
+as usual. If you're not, you'll need to pass the directory to the tests.
+
+```
+$ clash test     # Run all tests in the 'test' directory, reading test/_clash.yml.
 $ clash test 1   # Run the first test in the 'test' directory.
 ```
 
