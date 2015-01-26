@@ -7,18 +7,60 @@ module Clash
       if only.is_a?(Array)
         only = only.join(',')
       end
-      only.split(',').map do |n|
-        if n.include?("-")
-          expand_range(n)
+      only.split(',').map do |num|
+        if num.include?("-")
+          expand_range(num)
         else
-          n.to_i
+          get_number(num)
         end
       end.flatten.sort.uniq
     end
 
     def expand_range(string_range)
-      lower, upper = string_range.split("-").map(&:to_i).take(2).sort
+      lower, upper = string_range.split("-").map{|n| get_number(n)}.take(2).sort
       Array.new(upper+1 - lower).fill { |i| i + lower }
+    end
+
+    def get_number(num)
+      if num.start_with?(':')
+        test_at_line_number(num)
+      else
+        num.to_i
+      end
+    end
+
+    def read_test_line_numbers(path)
+      @test_lines ||= []
+      count = 1
+      strip_tasks(File.read(path)).each_line do |line|
+        @test_lines << count if line =~ /^-/
+        count += 1
+      end
+    end
+
+    def strip_tasks(content)
+      content.gsub(/-\s+tasks:.+?^-/im) do |match|
+        match.gsub(/.+?\n/,"\n")
+      end
+    end
+
+    def test_at_line_number(line_number)
+      ln = line_number.sub(':', '').to_i
+      test_number = nil
+      lines = @test_lines
+      lines.each_with_index do |line, index|
+        last = index == lines.size - 1
+
+        if line <= ln && ( last || ln <= lines[index + 1] )
+          test_number = index + 1
+        end
+      end
+
+      if test_number
+        test_number
+      else
+        puts "No test found on line #{ln}"
+      end
     end
 
     def default_array(option)

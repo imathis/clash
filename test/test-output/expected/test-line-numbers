@@ -1,0 +1,9 @@
+  4) Compare matching files
+  5) (Should fail) Compare files with differences
+  6) Compare two matching dirs
+.
+
+Test summary:
+ Tests run: 1
+ Passed 1 - Tests: 12
+ Failed 0 

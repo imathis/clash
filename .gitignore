@@ -22,3 +22,6 @@ tmp
 mkmf.log
 _site
 _output
+.DS_Store
+test/test-output/output
+init-tests

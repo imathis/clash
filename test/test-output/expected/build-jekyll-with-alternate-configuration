@@ -1,7 +1,7 @@
 Configuration file: _config.yml
 Configuration file: _test1.yml
-            Source: test
-       Destination: _site
+            Source: jekyll
+       Destination: jekyll/_site
       Generating... 
                     done.
  Auto-regeneration: disabled. Use --watch to enable.

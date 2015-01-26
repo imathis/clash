@@ -21,14 +21,15 @@ module Clash
       @options[:only]    ||= []
       @options[:exit]    ||= true
       @options[:path]    ||= '.'
-      @options[:file]    ||= '.clash.yml'
+      @options[:file]    ||= '_clash.yml'
 
+      @clashfile = read_config
       @tests = read_tests
     end
 
     def list
       @tests.each_with_index do |options, index|
-        # If tests are limited, only run specified tests
+        # If tests are limited, only show specified tests
         #
         next if options.nil?
         list_test(options, index)
@@ -42,7 +43,6 @@ module Clash
     end
 
     def run
-
       Dir.chdir(@options[:path]) do
         @tests.each_with_index do |options, index|
           # If tests are limited, only run specified tests
@@ -60,6 +60,7 @@ module Clash
       options['index'] = index + 1
       options['context'] = @options[:context]
       options['tasks'] = @tasks
+      options['build_only'] = @options[:build_only]
 
       results = Test.new(options).run
 
@@ -72,12 +73,11 @@ module Clash
     end
 
     def read_tests
-      return [] unless File.file?(@options[:file])
-      tests = SafeYAML.load_file(@options[:file])
       index = 0
       delete_tests = []
+      @options[:only] = expand_list_of_numbers(@options[:only])
 
-      tests = default_array(tests).map do |test|
+      tests = default_array(@clashfile).map do |test|
         if !test['tasks'].nil?
           @tasks.merge! test['tasks']
           delete_tests << test
@@ -98,6 +98,30 @@ module Clash
       end
       tests - [delete_tests]
 
+    end
+
+    def read_config
+      # Find the config file (fall back to legacy filename)
+      if path = config_path || config_path('.clash.yml')
+        read_test_line_numbers(path)
+        SafeYAML.load_file(path)
+      else
+        # If config file still not found, complain
+        raise "Config file #{@options[:file]} not found."
+      end
+    end
+
+    def config_path(file=nil)
+      file ||= @options[:file]
+      path = File.join('./', @options[:path])
+      paths = []
+
+      (path.count('/') + 1).times do
+        paths << File.join(path, file)
+        path.sub!(/\/[^\/]+$/, '')
+      end
+
+      paths.find {|p| File.file?(p) }
     end
 
     def print_results
