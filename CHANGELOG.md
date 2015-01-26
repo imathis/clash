@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.5.0 - 2015-01-25
+- New: `init` command adds a testing scaffold.
+- New: Run tests by line number, e.g. `clash :35`.
+- New: `--build` option runs `before` and `build` commands only.
+
 ### 1.4.1 - 2015-01-09
 - Minor Fix: Commands like this: `echo "stuff" > file` work again.
 
