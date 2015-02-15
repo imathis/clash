@@ -63,12 +63,6 @@ module Clash
       end
     end
 
-    def default_array(option)
-      o = option || []
-      o = [o] unless o.is_a?(Array)
-      o
-    end
-
     def colorize(str, color)
       if STDOUT.tty?
         str.send(color)

@@ -77,7 +77,7 @@ module Clash
       delete_tests = []
       @options[:only] = expand_list_of_numbers(@options[:only])
 
-      tests = default_array(@clashfile).map do |test|
+      tests = @clashfile.map do |test|
         if !test['tasks'].nil?
           @tasks.merge! test['tasks']
           delete_tests << test
@@ -104,7 +104,9 @@ module Clash
       # Find the config file (fall back to legacy filename)
       if path = config_path || config_path('.clash.yml')
         read_test_line_numbers(path)
-        SafeYAML.load_file(path)
+        config = SafeYAML.load_file(path)
+        config = [config] unless config.is_a?(Array)
+        config
       else
         # If config file still not found, complain
         raise "Config file #{@options[:file]} not found."

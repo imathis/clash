@@ -46,12 +46,24 @@ module Clash
       end
     end
 
-    def config_octopress(file)
-      copy_config(file, '_octopress.yml')
+    def config_plugin(name, file)
+      copy_config(file, "#{plugins_path}/#{name}/config.yml")
     end
 
-    def config_plugin(name, file)
-      copy_config(file, "_plugins/#{name}/config.yml")
+    def plugins_path
+      jekyll_site.plugin_manager.plugins_path.first
+    end
+
+    def jekyll_site
+      require 'jekyll'
+      config = {}
+      Array(@options['config']['jekyll'] || '_config.yml').each do |c| 
+        config.merge!SafeYAML.load_file(c)
+      end
+      Jekyll.logger.log_level = :error
+      site = Jekyll::Site.new(Jekyll.configuration(config))
+      Jekyll.logger.log_level = :info
+      site
     end
 
     def copy_config(file, target)
@@ -75,15 +87,15 @@ module Clash
     def build
       options = "--trace"
 
-      if jekyll_config = @options['config']['jekyll']
-        options << " --config #{default_array(jekyll_config).join(',')}"
+      if config = @options['config']['jekyll']
+        options << " --config #{Array(config).join(',')}"
       end
 
       system "jekyll build #{options}"
     end
 
     def system_cmd(cmds)
-      cmds = default_array(cmds)
+      cmds = Array(cmds)
       cmds.each {|cmd| 
         if @options['tasks'].include?(cmd)
           system_cmd(@options['tasks'][cmd])
@@ -94,7 +106,7 @@ module Clash
     end
 
     def compare
-      default_array(@options['compare']).each do |files|
+      Array(@options['compare']).each do |files|
         f = files.gsub(',',' ').split
 
         differ = Diff.new(f.first, f.last, context: @options['context'])
@@ -109,7 +121,7 @@ module Clash
     end
 
     def enforce_missing
-      default_array(@options['enforce_missing']).each do |file|
+      Array(@options['enforce_missing']).each do |file|
         if File.exists?(file)
           message = yellowit("\nFile #{file} shouldn't exist.") + "\n  But it does!"
           @test_failures << message
