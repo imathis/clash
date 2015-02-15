@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.5.1 - 2015-02-14
+- Ensure proper plugins directory when configuring Octopress Ink plugins.
+
 ### 1.5.0 - 2015-01-25
 - New: `init` command adds a testing scaffold.
 - New: Run tests by line number, e.g. `clash :35`.
