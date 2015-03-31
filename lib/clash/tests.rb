@@ -44,7 +44,6 @@ module Clash
 
     def run
       Dir.chdir(@options[:path]) do
-        clear_cache
         @tests.each_with_index do |options, index|
           # If tests are limited, only run specified tests
           #
@@ -54,12 +53,6 @@ module Clash
       end
 
       print_results
-    end
-
-    def clear_cache
-      if File.exist? '.jekyll-metadata'
-        FileUtils.rm '.jekyll-metadata'
-      end
     end
 
     def run_test(options, index)

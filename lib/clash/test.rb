@@ -14,6 +14,7 @@ module Clash
 
     def run
       Dir.chdir(@options['dir']) do
+        clear_cache
         system_cmd(@options['before'])
         config
         build if @options['build']
@@ -26,6 +27,12 @@ module Clash
       end
       print_result
       results
+    end
+
+    def clear_cache
+      if File.exist? '.jekyll-metadata'
+        FileUtils.rm '.jekyll-metadata'
+      end
     end
 
     def config
