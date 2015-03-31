@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.5.2 - 2015-03-30
+- Fix: Removes Jekyll's `.jekyll-metadata` cache before building sites.
+
 ### 1.5.1 - 2015-02-14
 - Ensure proper plugins directory when configuring Octopress Ink plugins.
 
