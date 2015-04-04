@@ -53,25 +53,30 @@ OptionParser.new do |opts|
       options[:force] = f
     end
   else
-    opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions.") do |b|
-      options[:build_only] = b
+    opts.on("-a", "--accept", "Accept failure: Copy test(s) build to expected path.") do |a|
+      options[:accept] = a
     end
 
-    opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
-      options[:file] = f
+    opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions.") do |b|
+      options[:build_only] = b
     end
 
     opts.on("-c", "--context NUMBER", Integer, "On diff errors, show NUMBER of lines of surrounding context (default: 2)") do |context|
       options[:context] = context
     end
 
+    opts.on("-d", "--debug", "Display output from system commands") do |d|
+      options[:debug] = d
+    end
+
     opts.on("-l", "--list", "Print a list of tests' numbers and titles") do |l|
       options[:list] = l
     end
 
-    opts.on("-d", "--debug", "Display output from system commands") do |d|
-      options[:debug] = d
+    opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
+      options[:file] = f
     end
+
   end
 
   opts.on("-h", "--help", "Show this message") do |h|
@@ -97,6 +102,8 @@ elsif !options[:help]
 
   if options[:list]
     tests.list
+  elsif options[:accept]
+    tests.accept
   else
     tests.run
   end

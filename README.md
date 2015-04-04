@@ -66,12 +66,13 @@ $ clash test 1   # Run the first test in the 'test' directory.
 ### CLI options
   
 ```
--f, --file FILE         Use a specific test file (default: _clash.yml)
+-a, --accept            Accept failure: Copy test(s) build to expected path.
 -b, --build             Build mode: Runs only 'before' and 'build' actions.
--l, --list              Print a list of tests' numbers and titles (does not run tests)
 -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
 -d, --debug             Display output from system commands in tests
--h, --help              Show this message
+-l, --list              Print a list of tests' numbers and titles (does not run tests)
+-f, --file FILE         Use a specific test file (default: _clash.yml)
+-h, --help              Show help message
 ```
 
 ## Testing scaffold

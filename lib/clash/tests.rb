@@ -55,6 +55,17 @@ module Clash
       print_results
     end
 
+    def accept
+      Dir.chdir(@options[:path]) do
+        @tests.each_with_index do |options, index|
+          # If tests are limited, only run specified tests
+          #
+          next if options.nil?
+          Test.new(options).accept
+        end
+      end
+    end
+
     def run_test(options, index)
 
       options['index'] = index + 1

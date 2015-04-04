@@ -112,6 +112,22 @@ module Clash
       }
     end
 
+    def accept
+      Dir.chdir(@options['dir']) do
+        Array(@options['compare']).each do |files|
+          f = files.gsub(',',' ').split
+
+          if File.directory?(f.first)
+            FileUtils.cp_r(File.join(f.first, '.'), f.last)
+          else
+            FileUtils.cp f.first, f.last
+          end
+
+          puts "Copied #{f.first} to #{f.last}"
+        end
+      end
+    end
+
     def compare
       Array(@options['compare']).each do |files|
         f = files.gsub(',',' ').split
