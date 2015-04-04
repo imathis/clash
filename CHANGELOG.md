@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.6.0 - 2015-04-04
+- New: Added --accept option for copying test build(s) to expected directory.
+
 ### 1.5.3 - 2015-03-30
 - Fix: Jekyll cache is removed using the correct path.
 
