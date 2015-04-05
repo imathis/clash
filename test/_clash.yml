@@ -64,3 +64,10 @@
 
 - title: Test line numbers
   before: clash :29-:40 --list
+
+- title: Test accept option
+  before: 
+    - echo 'wrong' > compare-files/a/1.txt
+    - clash 6
+    - clash 6 -a
+    - clash 6

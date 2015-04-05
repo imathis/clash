@@ -118,12 +118,14 @@ module Clash
           f = files.gsub(',',' ').split
 
           if File.directory?(f.first)
-            FileUtils.cp_r(File.join(f.first, '.'), f.last)
+            FileUtils.rm_r(f.first)
+            FileUtils.mkdir_p(File.dirname(f.first))
+            FileUtils.cp_r(File.join(f.last, '.'), f.first)
           else
-            FileUtils.cp f.first, f.last
+            FileUtils.cp f.last, f.first
           end
 
-          puts "Copied #{f.first} to #{f.last}"
+          puts "Copied #{f.last} to #{f.first}"
         end
       end
     end

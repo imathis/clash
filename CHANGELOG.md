@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.6.1 - 2015-04-05
+- Fix: accept option order was backwards.
+- Fix: accept now properly syncs missing files.
+
 ### 1.6.0 - 2015-04-04
 - New: Added --accept option for copying test build(s) to expected directory.
 
