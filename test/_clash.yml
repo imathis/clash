@@ -5,7 +5,7 @@
 - title: Standard build
   dir: jekyll
   build: true
-  compare: _site/index.html _expected/index.html
+  compare: _expected/index.html _site/index.html
 
 - title: Build Jekyll with alternate configuration
   dir: jekyll
@@ -14,7 +14,7 @@
     jekyll: 
       - _config.yml
       - _test1.yml
-  compare: _site/index.html _expected/alternate.html
+  compare: _expected/alternate.html _site/index.html
 
 - title: Test Octopress Ink configuration
   dir: jekyll
