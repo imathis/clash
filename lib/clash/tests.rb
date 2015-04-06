@@ -114,6 +114,7 @@ module Clash
     def read_config
       # Find the config file (fall back to legacy filename)
       if path = config_path || config_path('.clash.yml')
+
         read_test_line_numbers(path)
         config = SafeYAML.load_file(path)
         config = [config] unless config.is_a?(Array)
@@ -129,12 +130,22 @@ module Clash
       path = File.join('./', @options[:path])
       paths = []
 
+      # Walk up the directory tree looking for a clash file.
       (path.count('/') + 1).times do
         paths << File.join(path, file)
         path.sub!(/\/[^\/]+$/, '')
       end
 
-      paths.find {|p| File.file?(p) }
+      # By default search for clash config in the test directory.
+      paths << "./test/_clash.yml"
+
+      path = paths.find {|p| File.file?(p) }
+
+      if path && path =~ %r{test/_clash.yml} && @options[:path] == '.'
+        @options[:path] = 'test'
+      end
+
+      path
     end
 
     def print_results
