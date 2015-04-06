@@ -130,19 +130,21 @@ module Clash
       path = File.join('./', @options[:path])
       paths = []
 
+      # By default search for clash config in the test directory.
+      default_path = "test/_clash.yml"
+
       # Walk up the directory tree looking for a clash file.
       (path.count('/') + 1).times do
         paths << File.join(path, file)
         path.sub!(/\/[^\/]+$/, '')
       end
 
-      # By default search for clash config in the test directory.
-      paths << "./test/_clash.yml"
-
       path = paths.find {|p| File.file?(p) }
 
-      if path && path =~ %r{test/_clash.yml} && @options[:path] == '.'
-        @options[:path] = 'test'
+      # If path wasn't found, try default path
+      if !path && File.file?(default_path)
+        @options[:path] = File.dirname(default_path)
+        path = default_path
       end
 
       path
