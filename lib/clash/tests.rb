@@ -20,7 +20,7 @@ module Clash
 
       @options[:only]    ||= []
       @options[:exit]    ||= true
-      @options[:path]    ||= '.'
+      @options[:dir]     ||= '.'
       @options[:file]    ||= '_clash.yml'
 
       @clashfile = read_config
@@ -43,7 +43,7 @@ module Clash
     end
 
     def run
-      Dir.chdir(@options[:path]) do
+      Dir.chdir(@options[:dir]) do
         @tests.each_with_index do |options, index|
           # If tests are limited, only run specified tests
           #
@@ -56,7 +56,7 @@ module Clash
     end
 
     def accept
-      Dir.chdir(@options[:path]) do
+      Dir.chdir(@options[:dir]) do
         @tests.each_with_index do |options, index|
           # If tests are limited, only run specified tests
           #
@@ -127,7 +127,7 @@ module Clash
 
     def config_path(file=nil)
       file ||= @options[:file]
-      path = File.join('./', @options[:path])
+      path = File.join('./', @options[:dir])
       paths = []
 
       # By default search for clash config in the test directory.
@@ -143,7 +143,7 @@ module Clash
 
       # If path wasn't found, try default path
       if !path && File.file?(default_path)
-        @options[:path] = File.dirname(default_path)
+        @options[:dir] = File.dirname(default_path)
         path = default_path
       end
 

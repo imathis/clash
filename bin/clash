@@ -42,12 +42,6 @@ OptionParser.new do |opts|
     end
   end
 
-  if !options[:init]
-    opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/_clash.yml)") do |f|
-      options[:file] = f
-    end
-  end
-
   opts.on("-h", "--help", "Show this message") do |h|
     options[:help] = opts
   end
@@ -71,7 +65,7 @@ else
   unless ARGV.empty?
     # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
     #
-    options[:path] = ARGV.shift if ARGV.first =~ /^[^\d:].+/
+    options[:dir]  = ARGV.shift if ARGV.first =~ /^[^\d:].+/
     options[:only] = ARGV
   end
 

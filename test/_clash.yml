@@ -69,5 +69,5 @@
   before: 
     - echo 'wrong' > compare-files/a/1.txt
     - clash 6
-    - clash 6 -a
+    - clash accept 6
     - clash 6

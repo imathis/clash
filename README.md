@@ -23,9 +23,9 @@ Or install it yourself as:
 ## CLI
 
 ```
-$ clash [path] [tests] [options]          # Run tests
-$ clash accept [path] [tests] [options]   # Accept a build: Copy build files, overwriting files in the comparison directory
-$ clash init PATH                         # Add testing scaffold to PATH
+$ clash [dir] [tests] [options]          # Run tests
+$ clash accept [dir] [tests] [options]   # Accept a build: Copy build files, overwriting files in the comparison directory
+$ clash init PATH                        # Add testing scaffold to PATH
 ```
 
 ### CLI options
@@ -34,7 +34,6 @@ $ clash init PATH                         # Add testing scaffold to PATH
 -b, --build             Build mode: Runs only 'before' and 'build' actions
 -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
 -d, --debug             Display output from system commands in tests
--f, --file FILE         Use a specific test file (default: _clash.yml)
 -l, --list              Print a list of tests' numbers and titles (does not run tests)
 -h, --help              Show help message
 ```

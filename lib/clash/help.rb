@@ -17,9 +17,9 @@ end
 def default_banner
 <<-BANNER
 Usage:
-  $ clash [path] [tests] [options]          # Run tests
-  $ clash accept [path] [tests] [options]   # Accept build: overwrite expected files with build files
-  $ clash init [path] [options]             # Add testing scaffold
+  $ clash [dir] [tests] [options]          # Run tests
+  $ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
+  $ clash init PATH [options]              # Add testing scaffold
 
 Options:
 BANNER
@@ -30,7 +30,7 @@ def init_banner
 Add testing scaffold.
 
 Usage:
-  $ clash init [path] [options]
+  $ clash init PATH [options]
 
 Options:
 BANNER
@@ -41,7 +41,7 @@ def accept_banner
 This accepts a build, overwriting expected files with build files.
 
 Usage:
-  $ clash accept [path] [tests] [options]
+  $ clash accept [dir] [tests] [options]
 
 Options:
 BANNER
@@ -83,7 +83,7 @@ def config_info
 <<-CONFIG_INFO
 
 Configuration:
-  Clash searches for a configuration file at ./_clash.yml and ./test/_clash.yml or the path passed as a CLI argument.
+  Clash searches for a configuration file at ./_clash.yml and ./test/_clash.yml or the dir passed as a CLI argument.
 
   A simple clash file with one test might look like this:
 
