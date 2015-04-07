@@ -73,7 +73,7 @@ module Clash
 
     def system(*cmd)
       cmd = cmd.join(' ')
-      # Don't ouput to /dev/null if in debug mode
+      # Don't ouput to /dev/null if in trace mode
       # or if a command supplies its own ouput
       if !ENV['TRACE'] && !(cmd =~ / > /)
         cmd << " > /dev/null"
