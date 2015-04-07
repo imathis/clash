@@ -1,7 +1,11 @@
 # Changelog
 
-### 1.6.2 - 2015-04-05
-- Minor: Clash now also looks for config file at `./test/_clash.yml` if other paths aren't found.
+### 2.0.0 - 2015-04-07
+- New: Clash loads config file from current directory or 'test' directory, supporting for the common convention by default.
+- Change: Removed --file option for the sake of simplicity.
+- Change: --debug option is now --trace to match Jekyll's CLI flag.
+- Minor: Improved documentation, adding a getting started guide and organizing sections.
+- Minor: CLI help is more thorough, printing through less rather than stdout.
 
 ### 1.6.1 - 2015-04-05
 - Fix: accept option order was backwards.

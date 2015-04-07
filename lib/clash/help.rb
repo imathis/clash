@@ -83,8 +83,7 @@ def config_info
 <<-CONFIG_INFO
 
 Configuration:
-  Clash searches for a configuration file at ./_clash.yml and ./test/_clash.yml or the dir passed as a CLI argument.
-
+  Clash loads tests from a _clash.yml file in the current directory or the './test' directory if not found.
   A simple clash file with one test might look like this:
 
     title: Test Build           # Name for your test

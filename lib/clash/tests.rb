@@ -9,8 +9,8 @@ module Clash
 
       ENV['JEKYLL_ENV'] = 'test'
 
-      if @options[:debug]
-        ENV['DEBUG'] = 'true'
+      if @options[:trace]
+        ENV['TRACE'] = 'true'
       end
 
       @results = []

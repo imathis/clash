@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ```
 $ clash [dir] [tests] [options]          # Run tests
-$ clash accept [dir] [tests] [options]   # Accept a build: Copy build files, overwriting files in the comparison directory
+$ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
 $ clash init PATH                        # Add testing scaffold to PATH
 ```
 
@@ -33,8 +33,8 @@ $ clash init PATH                        # Add testing scaffold to PATH
 ```
 -b, --build             Build mode: Runs only 'before' and 'build' actions
 -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
--d, --debug             Display output from system commands in tests
 -l, --list              Print a list of tests' numbers and titles (does not run tests)
+-t, --trace             Display output from system commands in tests
 -h, --help              Show help message
 ```
 
@@ -251,10 +251,10 @@ When Clash builds your site with a custom configuration, it uses the command `je
 config:
   jekyll:
     - _config.yml
-    - _config_alt.yml
+    - _config_a.yml
 ```
 
-Here `_config_alt.yml` will override settings in `_config.yml` when the site is built.
+Here `_config_a.yml` will override settings in `_config.yml` when the site is built.
 
 ### Test Octopress Ink plugin configurations
 
@@ -262,10 +262,10 @@ If you are developing an Octopress Ink plugin with the slug `awesome-sauce` you 
 
 ```
 config:
-  awesome-sauce: _config_alt.yml
+  awesome-sauce: _awesome-sauce.yml  # any file name works
 ```
 
-This will copy `site/_config_alt.yml` to your plugin's configuration path at `site/_plugins/awesome-sauce/config.yml`. If there is already a configuration file in that location, it will be backed up and then restored after tests.
+This will copy `site/_awesome-sauce.yml` to your plugin's configuration path at `site/_plugins/awesome-sauce/config.yml`. If there is already a configuration file in that location, it will be backed up and then restored after tests.
 
 
 ## Tasks

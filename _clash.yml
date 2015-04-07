@@ -1,4 +1,4 @@
 title: Run clash via test.rb so results can be logged can compared.
 dir: test
-before: DEBUG=true ruby test.rb
+before: TRACE=true ruby test.rb
 compare: test-output/expected test-output/output

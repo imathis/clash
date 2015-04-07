@@ -33,8 +33,8 @@ OptionParser.new do |opts|
       options[:context] = context
     end
 
-    opts.on("-d", "--debug", "Display output while running tests") do |d|
-      options[:debug] = d
+    opts.on("-t", "--trace", "Display output while running tests") do |t|
+      options[:trace] = t
     end
 
     opts.on("-l", "--list", "Print a list of tests' numbers and titles") do |l|
