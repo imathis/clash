@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.6.2 - 2015-04-05
+- Minor: Clash now also looks for config file at `./test/_clash.yml` if other paths aren't found.
+
 ### 1.6.1 - 2015-04-05
 - Fix: accept option order was backwards.
 - Fix: accept now properly syncs missing files.

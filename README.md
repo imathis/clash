@@ -20,29 +20,63 @@ Or install it yourself as:
 
     $ gem install clash
 
-## Overview
-
-Here's what it looks like to test Jekyll plugins with Clash.
-
-1. Run `$ clash init test` to generate the testing scaffold.
-2. Add use-cases to the test site.
-3. Run `$ clash test --build` and review the generated site.
-4. If everything looks correct, copy site files to the `_expected` directory.
-5. Run `$ clash test` and Clash will compare `_site/` to `_expected/`.
-6. **Code with confidence!**
-
-This example illustrates a simple test scenario, but Clash can also:
-
-- Run tasks before and after tests. (Good for setup and cleanup)
-- Test multiple sites.
-- Test the same site multiple times using different Jekyll configurations.
-- Compare single files or entire directories.
-
-## Running tests
+## CLI
 
 ```
-$ clash [path] [tests] [options]
+$ clash [path] [tests] [options]          # Run tests
+$ clash accept [path] [tests] [options]   # Accept a build: Copy build files, overwriting files in the comparison directory
+$ clash init PATH                         # Add testing scaffold to PATH
 ```
+
+### CLI options
+  
+```
+-b, --build             Build mode: Runs only 'before' and 'build' actions
+-c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
+-d, --debug             Display output from system commands in tests
+-f, --file FILE         Use a specific test file (default: _clash.yml)
+-l, --list              Print a list of tests' numbers and titles (does not run tests)
+-h, --help              Show help message
+```
+
+## The Clash file
+
+A simple clash file with one test might look like this:
+
+```
+- 
+  title: Test Build           # Name for your test
+  dir: site                   # Dir containing your Jekyll test site
+  build: true                 # Run Jekyll build
+  compare: _expected _site    # Compare the contents of _expected/ to _site/
+```
+
+A clash test can be configured with the following options. Each of these is optional.
+
+| Option           | Type           | Description                                                |
+|:-----------------|:---------------|:-----------------------------------------------------------|
+| title            | String         | A descriptive name for the test                            |
+| dir              | String         | Scope tests to this directory.                             |
+| before           | String/Array   | Run system command(s) before running tests.                |
+| build            | Boolean        | Build the site with Jekyll.                                |
+| config           | Hash           | Configure Jekyll, Octopress Ink plugins. (Info below)      |
+| compare          | String/Array   | Compare files or directories. Format: "_expected _site"    |
+| after            | String/Array   | Run system command(s) after running tests.                 |
+| enforce_missing  | String/Array   | Ensure that these files are not found.                     |
+
+Note: Above, String/Array means a configuration can accept either, for example:
+
+```yaml
+compare: _expected _site                     # Compare two directories
+compare:                                     # Compare multiple items
+  - _expected/index.html _site/index.html
+  - _expected/atom.xml _site/atom.xml
+  - _expected/posts _site/posts
+```
+
+The order, `expected` file before `site` file is important as it affects the readout of the diff when there are failures.
+
+### Examples
 
 To run only specific tests, pass test numbers separated by commas.
 
@@ -59,79 +93,67 @@ Typically the clash file is kept in the same directory as the tests. If you are 
 as usual. If you're not, you'll need to pass the directory to the tests.
 
 ```
-$ clash test     # Run all tests in the 'test' directory, reading test/_clash.yml.
-$ clash test 1   # Run the first test in the 'test' directory.
+$ clash awesome       # Run all tests in the 'awesome' directory, reading awesome/_clash.yml.
+$ clash awesome 1     # Run the first test in the 'awesome' directory.
 ```
 
-### CLI options
-  
-```
--a, --accept            Accept failure: Copy test(s) build to expected path.
--b, --build             Build mode: Runs only 'before' and 'build' actions.
--c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
--d, --debug             Display output from system commands in tests
--l, --list              Print a list of tests' numbers and titles (does not run tests)
--f, --file FILE         Use a specific test file (default: _clash.yml)
--h, --help              Show help message
-```
+## Get Started
 
-## Testing scaffold
-
-To get started, you can add a test scaffold with the `init` command.
+Here's how you can get started testing Jekyll plugins with Clash. First generate a testing scaffold.
 
 ```
-$ clash init [path] [--force]
+$ clash init test  # Add a clash scaffold to the `test` directory.
 ```
 
-Run `$ clash init test` to generate a testing scaffold in the `test` directory. Here's what it looks like:
+This will generate the following:
 
 ```
 test/
-  _clash.yml        # Clash configuration file
-  site/             # Directory containing a Jekyll site 
-    _config.yml     # Jekyll configuration
-    _expected       # Build comparison directory
-      index.html    # File to compare
-    index.html      # Source file for testing your site
+  _clash.yml                 # Clash configuration file
+  site/                      # Directory containing a Jekyll site 
+    _config.yml              # Jekyll configuration
+    _expected/               
+      index.html             # File containing expected result
+    index.html               # Source file for testing your plugin
 ```
 
-The `_clash.yml` file contains a simple test which looks like this.
+And here is what your `_clash.yml` will look like:
 
 ```
 - 
-  title: Test Build
-  dir: site
-  build: true
-  compare: _expected _site
+  title: Test Build           # Name for your test
+  dir: site                   # Dir containing your Jekyll test site
+  build: true                 # Run Jekyll build
+  compare: _expected _site    # Compare the contents of _expected/ to _site/
 ```
 
-Now when you run `$ clash` from the test directory Jekyll will build the site and compare
-`site/_expected` to `site/_site`, showing any differences between the directories.
+Next add your plugin to the Jekyll test site and add a sample usage to the `index.html` file. You can build your site like this:
 
-Read on to learn about running and configuring tests.
-
-## The Clash file
-
-| Option           | Type           | Description                                              |
-|:-----------------|:---------------|:---------------------------------------------------------|
-| title            | String         | A descriptive name for the test                          |
-| dir              | String         | Scope tests to this directory.
-| before           | String/Array   | Run system command(s) before running tests.              |
-| build            | Boolean        | Build the site with Jekyll.                              |
-| config           | Hash           | Configure Jekyll, Octopress Ink plugins. (Info below)    |
-| compare          | String/Array   | Compare files or directories. e.g. "_expected _site"     |
-| after            | String/Array   | Run system command(s) after running tests.               |
-| enforce_missing  | String/Array   | Ensure that these files are not found.                   |
-
-Note: Above, String/Array means a configuration can accept either, for example:
-
-```yaml
-compare: _expected _site                     # Compare two directories
-compare:                                     # Compare multiple items
-  - _expected/index.html _site/index.html
-  - _expected/atom.xml _site/atom.xml
-  - _expected/posts _site/posts
 ```
+$ clash --build  # trigger a jekyll build
+```
+
+And once you're ready to go, run your test like this.
+
+```
+$ clash    # run tests
+```
+
+Unless you've already modified your expected files, this will fail, printing a diff of `_expected/index.html` and the build file `_site/index.html`.
+You can accept the build result and copy it over the expected files like this:
+
+```
+$ clash accept   # Copy _site/ files to _expected/
+```
+
+Now when you run `$ clash` your tests will pass.
+
+This example illustrated a simple test scenario, but Clash can also:
+
+- Run tasks before and after tests. (Good for setup and cleanup)
+- Test multiple sites.
+- Test the same site multiple times using different Jekyll configurations.
+- Compare single files or entire directories.
 
 ### Testing multiple use-cases
 

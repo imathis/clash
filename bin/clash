@@ -3,48 +3,16 @@
 $LOAD_PATH.unshift(File.expand_path("../lib", File.dirname(__FILE__)))
 
 require 'clash'
+require 'clash/help'
 require 'optparse'
 
 options = {}
 
-banner = <<-BANNER
-clash #{Clash::VERSION} -- Clash is a diff based testing suite for static sites.
-
-Usage:
-  # Run tests
-  clash [path] [tests] [options]
-
-  To run only specific tests, pass test numbers separated by commas.
-
-    $ clash           # Run all tests
-    $ clash 1         # Run only the first test
-    $ clash 2,3       # Run the second and third tests
-    $ clash 2-4       # Run the second, third, and fourth tests
-    $ clash :10       # Run the test on line 10
-    $ clash :10-:35   # Run all tests from line 10 to 35
-    $ clash test      # Run all tests in the 'test' directory, reading test/_clash.yml.
-    $ clash test 1    # Run the first test in the 'test' directory.
-  
-  # Add testing scaffold
-  clash init [path] [options]
-
-Options:
-
-BANNER
-
-config_info = <<-CONFIG
-
-Configuration:
-
-  Clash reads its configuration from a .clash.yml file in the root of your project. Use the --file
-  option to choose a different configuration file.
-
-  View the README or visit https://github.com/imathis/clash for configuration info.
-
-CONFIG
-
 OptionParser.new do |opts|
-  opts.banner = banner
+
+  if ARGV.first == 'accept'
+    options[:accept] = ARGV.shift
+  end
 
   if ARGV.first == 'init'
     options[:init] = ARGV.shift
@@ -52,12 +20,12 @@ OptionParser.new do |opts|
     opts.on("-f", "--force", "Overwrite existing content") do |f|
       options[:force] = f
     end
-  else
-    opts.on("-a", "--accept", "Accept failure: Copy test(s) build to expected path.") do |a|
-      options[:accept] = a
-    end
+  end
 
-    opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions.") do |b|
+  opts.banner = banner(options)
+
+  if !options[:init] and !options[:accept]
+    opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions") do |b|
       options[:build_only] = b
     end
 
@@ -65,31 +33,40 @@ OptionParser.new do |opts|
       options[:context] = context
     end
 
-    opts.on("-d", "--debug", "Display output from system commands") do |d|
+    opts.on("-d", "--debug", "Display output while running tests") do |d|
       options[:debug] = d
     end
 
     opts.on("-l", "--list", "Print a list of tests' numbers and titles") do |l|
       options[:list] = l
     end
+  end
 
-    opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/.clash.yml)") do |f|
+  if !options[:init]
+    opts.on("-f FILE", "--file FILE", "Use a specific test file (default: [PATH]/_clash.yml)") do |f|
       options[:file] = f
     end
-
   end
 
   opts.on("-h", "--help", "Show this message") do |h|
-    puts opts
-    puts config_info
-    options[:help] = h
+    options[:help] = opts
   end
 
 end.parse!
 
-if options[:init]
+if options[:help]
+  IO.popen("less", "w") do |f| 
+    f.puts options[:help]
+    f.puts config_info
+    if options[:accept]
+      f.puts accept_examples
+    elsif !options[:init]
+      f.puts default_examples
+    end
+  end
+elsif options[:init]
   Clash::Scaffold.new(ARGV, options)
-elsif !options[:help]
+else
 
   unless ARGV.empty?
     # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
