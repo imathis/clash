@@ -119,7 +119,7 @@ module Clash
 
           if File.directory?(f.first)
             FileUtils.rm_r(f.first)
-            FileUtils.mkdir_p(File.dirname(f.first))
+            FileUtils.mkdir_p(f.first)
             FileUtils.cp_r(File.join(f.last, '.'), f.first)
           else
             FileUtils.cp f.last, f.first

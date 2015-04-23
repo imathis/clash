@@ -1,5 +1,8 @@
 # Changelog
 
+### 2.0.2 - 2015-04-24
+- Fix: `clash accept` no longer fails to copy directories not ending in a `/`.
+
 ### 2.0.1 - 2015-04-23
 - Fix: now --version option prints Clash version. I know, right?
 
