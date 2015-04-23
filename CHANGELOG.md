@@ -1,5 +1,8 @@
 # Changelog
 
+### 2.0.1 - 2015-04-23
+- Fix: now --version option prints Clash version. I know, right?
+
 ### 2.0.0 - 2015-04-07
 - New: Clash loads config file from current directory or 'test' directory, supporting for the common convention by default.
 - Change: Removed --file option for the sake of simplicity.

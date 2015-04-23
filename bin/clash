@@ -42,11 +42,20 @@ OptionParser.new do |opts|
     end
   end
 
+  opts.on("-v", "--version", "Show version number") do |v|
+    options[:version] = v
+  end
+
   opts.on("-h", "--help", "Show this message") do |h|
     options[:help] = opts
   end
 
 end.parse!
+
+if options[:version]
+  puts "Clash #{Clash::VERSION}"
+  abort
+end
 
 if options[:help]
   IO.popen("less", "w") do |f| 
