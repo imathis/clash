@@ -8,6 +8,6 @@
   8) File shouldn't exist.
   9) (Should fail) File shouldn't exist (and does)
  10) Testing tasks
- 11) Testing init
+ 11) Testing new
  12) Test line numbers
  13) Test accept option

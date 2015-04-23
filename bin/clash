@@ -14,8 +14,8 @@ OptionParser.new do |opts|
     options[:accept] = ARGV.shift
   end
 
-  if ARGV.first == 'init'
-    options[:init] = ARGV.shift
+  if ARGV.first == 'new' || ARGV.first == 'init'
+    options[:new] = ARGV.shift
 
     opts.on("-f", "--force", "Overwrite existing content") do |f|
       options[:force] = f
@@ -24,7 +24,7 @@ OptionParser.new do |opts|
 
   opts.banner = banner(options)
 
-  if !options[:init] and !options[:accept]
+  if !options[:new] and !options[:accept]
     opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions") do |b|
       options[:build_only] = b
     end
@@ -63,11 +63,11 @@ if options[:help]
     f.puts config_info
     if options[:accept]
       f.puts accept_examples
-    elsif !options[:init]
+    elsif !options[:new]
       f.puts default_examples
     end
   end
-elsif options[:init]
+elsif options[:new]
   Clash::Scaffold.new(ARGV, options)
 else
 

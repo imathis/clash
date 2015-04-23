@@ -25,7 +25,7 @@ Or install it yourself as:
 ```
 $ clash [dir] [tests] [options]          # Run tests
 $ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
-$ clash init PATH                        # Add testing scaffold to PATH
+$ clash new PATH                        # Add testing scaffold to PATH
 ```
 
 ### CLI options
@@ -101,7 +101,7 @@ $ clash awesome 1     # Run the first test in the 'awesome' directory.
 Here's how you can get started testing Jekyll plugins with Clash. First generate a testing scaffold.
 
 ```
-$ clash init test  # Add a clash scaffold to the `test` directory.
+$ clash new test  # Add a new clash testing scaffold to the `test` directory.
 ```
 
 This will generate the following:
