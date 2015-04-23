@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.1.0 - 2015-04-24
+- Change: `clash init` is now `clash new`
+- New: Clash scaffold has a default layout.
+
 ### 2.0.2 - 2015-04-24
 - Fix: `clash accept` no longer fails to copy directories not ending in a `/`.
 
