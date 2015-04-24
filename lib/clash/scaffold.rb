@@ -2,32 +2,43 @@ module Clash
   class Scaffold
     attr_accessor :options
 
-    def initialize(args, options = {})
-      raise 'You must specify a path.' if args.empty?
+    def initialize(options = {})
+      @options = {
+        path: 'test',
+        name: 'site',
+        force: false
+      }.merge(options)
 
-      test_path = File.expand_path(args.join(" "), Dir.pwd)
-      FileUtils.mkdir_p test_path
-      if preserve_source_location?(test_path, options)
-        abort "Conflict: #{test_path} exists and is not empty."
-      end
-
-      add_test_scaffold test_path
-
-      puts "Clash test added to #{test_path}."
-    end
-
-    def add_test_scaffold(path)
-      FileUtils.cp_r test_template + '/.', path
+      @options[:path] = File.expand_path(@options[:path], Dir.pwd)
     end
 
     def test_template
       File.expand_path("../../scaffold", File.dirname(__FILE__))
     end
 
+    def create
+      FileUtils.mkdir_p @options[:path]
+
+      if preserve_source_location?
+        abort "Conflict: #{@options[:path]} exists and is not empty."
+      end
+
+      FileUtils.cp_r test_template + '/.', @options[:path]
+
+      puts "Clash test added to #{@options[:path]}."
+    end
+
+    def add
+    end
+
     private
 
-    def preserve_source_location?(path, options)
-      !options[:force] && !Dir["#{path}/**/*"].empty?
+    def preserve_source_location?
+      !@options[:force] && !Dir["#{@options[:path]}/**/*"].empty?
+    end
+
+    def dasherize(string)
+      string.gsub(/ /,'-').gsub(/[^\w-]/,'').gsub(/-{2,}/,'-').downcase
     end
   end
 end

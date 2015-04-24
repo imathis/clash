@@ -77,7 +77,8 @@ if options[:help]
     end
   end
 elsif options[:new]
-  Clash::Scaffold.new(ARGV, options)
+  options[:path] = ARGV.join(" ")
+  Clash::Scaffold.new(options).create
 else
 
   unless ARGV.empty?
