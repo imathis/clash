@@ -22,9 +22,17 @@ OptionParser.new do |opts|
     end
   end
 
+  if ARGV.first == 'list'
+    options[:list] = ARGV.shift
+  end
+
+  if !(options[:list] || options[:new] || options[:accept])
+    options[:normal] = true
+  end
+
   opts.banner = banner(options)
 
-  if !options[:new] and !options[:accept]
+  if !options[:new] and !options[:accept] and !options[:list]
     opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions") do |b|
       options[:build_only] = b
     end
@@ -35,10 +43,6 @@ OptionParser.new do |opts|
 
     opts.on("-t", "--trace", "Display output while running tests") do |t|
       options[:trace] = t
-    end
-
-    opts.on("-l", "--list", "Print a list of tests' numbers and titles") do |l|
-      options[:list] = l
     end
   end
 
@@ -60,11 +64,16 @@ end
 if options[:help]
   IO.popen("less", "w") do |f| 
     f.puts options[:help]
-    f.puts config_info
+
     if options[:accept]
       f.puts accept_examples
-    elsif !options[:new]
+    elsif options[:list]
+      f.puts list_examples
+    end
+
+    if options[:normal]
       f.puts default_examples
+      f.puts config_info
     end
   end
 elsif options[:new]

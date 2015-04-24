@@ -9,7 +9,7 @@ FileUtils.mkdir(output)
 
 puts "Running #{tests.size} tests..."
 
-system("clash --list > #{output}/list")
+system("clash list > #{output}/list")
 
 titles.each_with_index do |t, index|
   result = `clash #{index + 1} -t`

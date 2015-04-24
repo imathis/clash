@@ -1,12 +1,14 @@
 def version_banner
-"Clash #{Clash::VERSION} -- a diff based testing suite for Jekyll."
+"Clash #{Clash::VERSION} -- a diff based testing suite for Jekyll sites and plugins."
 end
 
 def banner(options)
-  banner = if options[:init]
-    init_banner
+  banner = if options[:new]
+    new_banner
   elsif options[:accept]
     accept_banner
+  elsif options[:list]
+    list_banner
   else
     default_banner
   end
@@ -18,19 +20,31 @@ def default_banner
 <<-BANNER
 Usage:
   $ clash [dir] [tests] [options]          # Run tests
+  $ clash list [dir] [tests] [options]     # Print a list of tests
   $ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
-  $ clash init PATH [options]              # Add testing scaffold
+  $ clash new PATH [options]               # Add a new testing scaffold
 
 Options:
 BANNER
 end
 
-def init_banner
+def new_banner
 <<-BANNER
-Add testing scaffold.
+Add a new testing scaffold.
 
 Usage:
-  $ clash init PATH [options]
+  $ clash new PATH [options]
+
+Options:
+BANNER
+end
+
+def list_banner
+<<-BANNER
+Print a list of test numbers and titles
+
+Usage:
+  $ clash list [dir] [tests] [options]
 
 Options:
 BANNER
@@ -61,6 +75,23 @@ Examples:
     $ clash :10-:35   # Run all tests from line 10 to 35
     $ clash awesome   # Run all tests in the 'awesome' directory, reading awesome/_clash.yml.
     $ clash awesome 1 # Run the first test in the 'awesome' directory.
+EXAMPLES
+end
+
+def list_examples
+<<-EXAMPLES
+
+Examples:
+  To run only specific tests, pass test numbers separated by commas.
+
+    $ clash list           # List all tests
+    $ clash list 1         # List only the first test
+    $ clash list 2,3       # List the second and third tests
+    $ clash list 2-4       # List the second, third, and fourth tests
+    $ clash list :10       # List the test on line 10
+    $ clash list :10-:35   # List all tests from line 10 to 35
+    $ clash list awesome   # List all tests in the 'awesome' directory, reading awesome/_clash.yml.
+    $ clash list awesome 1 # List the first test in the 'awesome' directory.
 EXAMPLES
 end
 

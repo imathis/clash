@@ -1,4 +1,3 @@
 name: Test site
-gems: []
 timezone: UTC
-markdown: redcarpet
+gems: []

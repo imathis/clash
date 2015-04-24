@@ -63,7 +63,7 @@
   compare: new-tests ../scaffold
 
 - title: Test line numbers
-  before: clash :29-:40 --list
+  before: clash list :29-:40
 
 - title: Test accept option
   before: 
