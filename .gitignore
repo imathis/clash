@@ -20,7 +20,7 @@ tmp
 *.o
 *.a
 mkmf.log
-_site
+test/jekyll/_site
 _output
 .DS_Store
 test/test-output/output

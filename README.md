@@ -24,16 +24,16 @@ Or install it yourself as:
 
 ```
 $ clash [dir] [tests] [options]          # Run tests
+$ clash list [dir] [tests] [options]     # List tests
 $ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
 $ clash new [path] [options]             # Add testing scaffold to or a new test site to [path] (defaults to `./test`)
 ```
 
-### CLI options
+### CLI options for testing
   
 ```
 -b, --build             Build mode: Runs only 'before' and 'build' actions
 -c, --context NUMBER    On diff errors, show NUMBER of lines of surrounding context (default: 2)
--l, --list              Print a list of tests' numbers and titles (does not run tests)
 -t, --trace             Display output from system commands in tests
 -h, --help              Show help message
 ```
@@ -45,7 +45,7 @@ A simple clash file with one test might look like this:
 ```
 - 
   title: Test Build           # Name for your test
-  dir: site                   # Dir containing your Jekyll test site
+  dir: test-site              # Dir containing your Jekyll test site
   build: true                 # Run Jekyll build
   compare: _expected _site    # Compare the contents of _expected/ to _site/
 ```
@@ -109,10 +109,12 @@ This will generate the following:
 ```
 test/
   _clash.yml                 # Clash configuration file
-  site/                      # Directory containing a Jekyll site 
+  test-site/                 # Directory containing a Jekyll site 
     _config.yml              # Jekyll configuration
     _expected/               
       index.html             # File containing expected result
+    _layouts/
+      default.html           # A default layout for your test site
     index.html               # Source file for testing your plugin
 ```
 
@@ -121,7 +123,7 @@ And here is what your `_clash.yml` will look like:
 ```
 - 
   title: Test Build           # Name for your test
-  dir: site                   # Dir containing your Jekyll test site
+  dir: test-site              # Dir containing your Jekyll test site
   build: true                 # Run Jekyll build
   compare: _expected _site    # Compare the contents of _expected/ to _site/
 ```
