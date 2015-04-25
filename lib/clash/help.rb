@@ -30,10 +30,12 @@ end
 
 def new_banner
 <<-BANNER
-Add a new testing scaffold.
+Add a new testing scaffold or a new test site to your existing test suite.
 
 Usage:
   $ clash new [path] [options]
+
+Note: path defaults to `./test`.
 
 Options:
 BANNER

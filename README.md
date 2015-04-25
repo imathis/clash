@@ -25,7 +25,7 @@ Or install it yourself as:
 ```
 $ clash [dir] [tests] [options]          # Run tests
 $ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
-$ clash new PATH                        # Add testing scaffold to PATH
+$ clash new [path] [options]             # Add testing scaffold to or a new test site to [path] (defaults to `./test`)
 ```
 
 ### CLI options

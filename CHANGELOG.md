@@ -1,5 +1,8 @@
 # Changelog
 
+### 2.2.0 - 2015-04-24
+- New: `clash new` can now add test sites to an existing test suite.
+
 ### 2.1.0 - 2015-04-24
 - Change: `clash init` is now `clash new`
 - New: Clash scaffold has a default layout.
