@@ -42,7 +42,7 @@ module Clash
 
     def print_test_files(path)
       FileUtils.cd path do
-        files = Dir['**/*']
+        files = sort_file_list(Dir['**/*'])
         files.map! { |f|
           if f.match /\//
             f.gsub!(/[^\/]+\//, '  ')
@@ -54,6 +54,12 @@ module Clash
         }
         puts "\n+  #{@options[:dir]}/\n#{files.join("\n")}\n".green
       end
+    end
+
+    def sort_file_list(files)
+      plain_files = files.select { |f| !f.match(/\//) && !File.directory?(f) }
+      files_in_dirs = files - plain_files
+      files_in_dirs.sort.concat plain_files.sort
     end
 
     def test_template
