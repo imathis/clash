@@ -1,5 +1,5 @@
 - 
-  title: Test Build
-  dir: site
+  title: "Test Build"
+  dir: test-site
   build: true
   compare: _expected _site

@@ -24,4 +24,4 @@ _site
 _output
 .DS_Store
 test/test-output/output
-new-tests
+test/test

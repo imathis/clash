@@ -59,8 +59,10 @@
   before: test_tasks
 
 - title: Testing new
-  before: clash new new-tests --force
-  compare: new-tests ../scaffold
+  before: 
+    - rm -rf test
+    - clash new test
+  compare: test-scaffold test
 
 - title: Test line numbers
   before: clash list :29-:40

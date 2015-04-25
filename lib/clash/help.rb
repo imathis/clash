@@ -19,10 +19,10 @@ end
 def default_banner
 <<-BANNER
 Usage:
-  $ clash [dir] [tests] [options]          # Run tests
-  $ clash list [dir] [tests] [options]     # Print a list of tests
-  $ clash accept [dir] [tests] [options]   # Accept build: overwrite expected files with build files
-  $ clash new PATH [options]               # Add a new testing scaffold
+  $ clash [path] [tests] [options]          # Run tests
+  $ clash list [path] [tests] [options]     # Print a list of tests
+  $ clash accept [path] [tests] [options]   # Accept build: overwrite expected files with build files
+  $ clash new [path] [options]              # Add a new testing scaffold
 
 Options:
 BANNER
@@ -33,7 +33,7 @@ def new_banner
 Add a new testing scaffold.
 
 Usage:
-  $ clash new PATH [options]
+  $ clash new [path] [options]
 
 Options:
 BANNER
@@ -44,7 +44,7 @@ def list_banner
 Print a list of test numbers and titles
 
 Usage:
-  $ clash list [dir] [tests] [options]
+  $ clash list [path] [tests] [options]
 
 Options:
 BANNER
@@ -55,7 +55,7 @@ def accept_banner
 This accepts a build, overwriting expected files with build files.
 
 Usage:
-  $ clash accept [dir] [tests] [options]
+  $ clash accept [path] [tests] [options]
 
 Options:
 BANNER

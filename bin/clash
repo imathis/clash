@@ -12,17 +12,9 @@ OptionParser.new do |opts|
 
   if ARGV.first == 'accept'
     options[:accept] = ARGV.shift
-  end
-
-  if ARGV.first == 'new' || ARGV.first == 'init'
+  elsif ARGV.first == 'new' || ARGV.first == 'init'
     options[:new] = ARGV.shift
-
-    opts.on("-f", "--force", "Overwrite existing content") do |f|
-      options[:force] = f
-    end
-  end
-
-  if ARGV.first == 'list'
+  elsif ARGV.first == 'list'
     options[:list] = ARGV.shift
   end
 
@@ -32,7 +24,16 @@ OptionParser.new do |opts|
 
   opts.banner = banner(options)
 
-  if !options[:new] and !options[:accept] and !options[:list]
+  if options[:new]
+    opts.on("-t", "--title TITLE", String, "Enter a title for your test (default: \"Test Build\")") do |title|
+      options[:title] = title
+    end
+    opts.on("-d", "--dir SITE_DIR", String, "Enter a directory name for your new test site (default: test-site)") do |dir|
+      options[:dir] = dir
+    end
+  end
+
+  if options[:normal]
     opts.on("-b", "--build", "Build mode: Runs only 'before' and 'build' actions") do |b|
       options[:build_only] = b
     end
@@ -44,10 +45,10 @@ OptionParser.new do |opts|
     opts.on("-t", "--trace", "Display output while running tests") do |t|
       options[:trace] = t
     end
-  end
 
-  opts.on("-v", "--version", "Show version number") do |v|
-    options[:version] = v
+    opts.on("-v", "--version", "Show version number") do |v|
+      options[:version] = v
+    end
   end
 
   opts.on("-h", "--help", "Show this message") do |h|
@@ -55,6 +56,7 @@ OptionParser.new do |opts|
   end
 
 end.parse!
+
 
 if options[:version]
   puts "Clash #{Clash::VERSION}"
@@ -76,10 +78,20 @@ if options[:help]
       f.puts config_info
     end
   end
-elsif options[:new]
-  options[:path] = ARGV.join(" ")
-  Clash::Scaffold.new(options).create
 else
+
+  if options[:new]
+    # Grab path from args if it exists
+    #
+    if !(path = ARGV.join(" ")).empty?
+      options[:path] = path
+    end
+
+    Clash::Scaffold.new(options).add_test
+
+    # List tests bceause that's nice.
+    options[:list] = true
+  end
 
   unless ARGV.empty?
     # Parse input `clash 1 2 3` and `clash 1,2,3` and `clash 1-3` the same
