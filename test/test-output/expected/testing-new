@@ -1,13 +1,13 @@
 New Clash test added to [33mtest[0m
 [32m
 +  test-site/
-+    _config.yml
 +    _expected/
 +      index.html
 +    _layouts/
 +      default.html
 +    _site/
 +      index.html
++    _config.yml
 +    index.html
 [0m
 Tests:
