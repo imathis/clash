@@ -1,5 +1,10 @@
 # Changelog
 
+### 2.2.1 - 2015-04-25
+- Fix: `clash new` scaffolding needn't include built `_site` directory.
+- Minor: `clash new` output does a nicer job of sorting newly added files when outputting them.
+- Readme improvements.
+
 ### 2.2.0 - 2015-04-24
 - New: `clash new` can now add test sites to an existing test suite.
 
