@@ -1,6 +1,9 @@
 # Changelog
 
 ### 2.2.1 - 2015-04-25
+- Minor: Switched default markdown to Kramdown because Rdiscount behaves differently on 1.9 and breaks tests. Yep.
+
+### 2.2.1 - 2015-04-25
 - Fix: `clash new` scaffolding needn't include built `_site` directory.
 - Minor: `clash new` output does a nicer job of sorting newly added files when outputting them.
 - Readme improvements.

@@ -1,3 +1,4 @@
 name: Test site
 timezone: UTC
+markdown: kramdown
 gems: []
