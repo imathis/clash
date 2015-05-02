@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.2.3 - 2015-05-02
+
+- Fix: Avoid errors when accepting a test and a directory doesn't exist [#16](https://github.com/imathis/clash/pull/16).
+
 ### 2.2.2 - 2015-04-25
 - Minor: Switched default markdown to Kramdown because Rdiscount behaves differently on 1.9 and breaks tests. Yep.
 
