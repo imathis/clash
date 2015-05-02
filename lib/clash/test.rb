@@ -122,6 +122,7 @@ module Clash
             FileUtils.mkdir_p(f.first)
             FileUtils.cp_r(File.join(f.last, '.'), f.first)
           else
+            FileUtils.mkdir_p File.dirname(f.first)
             FileUtils.cp f.last, f.first
           end
 
