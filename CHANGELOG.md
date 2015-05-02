@@ -1,5 +1,8 @@
 # Changelog
 
+### 2.2.5 - 2015-05-02
+- Fix: bundler require issue.
+
 ### 2.2.4 - 2015-05-02
 - Fix: Automatically invokes bundler. Yay!
 
