@@ -10,6 +10,7 @@ module Clash
       @options['config'] ||= {}
       @options['dir'] ||= '.'
       @cleanup = []
+      require_gems
     end
 
     def run
