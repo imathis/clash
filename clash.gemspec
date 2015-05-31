@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Brandon Mathis"]
   spec.email         = ["brandon@imathis.com"]
   spec.summary       = %q{A diff based testing framework for static sites.}
-  spec.description   = %q{A diff based testing framework for static sites.}
   spec.homepage      = "https://github.com/imathis/clash"
   spec.license       = "MIT"
 
