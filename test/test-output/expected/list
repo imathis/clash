@@ -1,13 +1,11 @@
-  1) Standard build
-  2) Build Jekyll with alternate configuration
-  3) Test Octopress Ink configuration
-  4) Compare matching files
-  5) (Should fail) Compare files with differences
-  6) Compare two matching dirs
-  7) (Should fail) Compare two dirs with differences
-  8) File shouldn't exist.
-  9) (Should fail) File shouldn't exist (and does)
- 10) Testing tasks
- 11) Testing new
- 12) Test line numbers
- 13) Test accept option
+  1) Test Octopress Ink configuration
+  2) Compare matching files
+  3) (Should fail) Compare files with differences
+  4) Compare two matching dirs
+  5) (Should fail) Compare two dirs with differences
+  6) File shouldn't exist.
+  7) (Should fail) File shouldn't exist (and does)
+  8) Testing tasks
+  9) Testing new
+ 10) Test line numbers
+ 11) Test accept option

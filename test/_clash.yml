@@ -2,19 +2,6 @@
     test_tasks:
       - echo "testing a task"
       - echo "testing another task"
-- title: Standard build
-  dir: jekyll
-  build: true
-  compare: _expected/index.html _site/index.html
-
-- title: Build Jekyll with alternate configuration
-  dir: jekyll
-  build: true
-  config:
-    jekyll: 
-      - _config.yml
-      - _test1.yml
-  compare: _expected/alternate.html _site/index.html
 
 - title: Test Octopress Ink configuration
   dir: jekyll

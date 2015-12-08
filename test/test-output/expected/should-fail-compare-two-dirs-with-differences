@@ -2,7 +2,7 @@ F
 
 Failures:
 
-7) (Should fail) Compare two dirs with differences
+5) (Should fail) Compare two dirs with differences
 ========================================================
 
 Missing from directory a:
@@ -13,23 +13,27 @@ Missing from directory c:
 
 Compared a/1.txt to c/1.txt:
 
-   Biltong magna excepteur pork dolore, turducken laboris veniam eiusmod shank. Cons
-   ectetur consequat exercitation pork belly tri-tip in. Biltong meatball velit, rep
-  -rehenderit culpa turkey tempor deserunt. Pork belly andouille sirloin ham hock co
+  -wrong
+  +Bacon ipsum dolor sit amet shank landjaeger duis, eu laboris beef fugiat meatball
+  +short loin ribeye occaecat cow. Eiusmod swine hamburger biltong qui pork belly fu
+  +giat. Duis corned beef hamburger eu short loin. Nisi spare ribs sed quis eu salam
+  +i. Non strip steak pork t-bone fatback, commodo ball tip capicola anim. Biltong p
+  +ork loin quis corned beef, in landjaeger esse bacon short loin brisket andouille.
+  +
+  +Biltong magna excepteur pork dolore, turducken laboris veniam eiusmod shank. Cons
+  +ectetur consequat exercitation pork belly tri-tip in. Biltong meatball velit, rep
   +rehenderit turkey tempor deserunt. Pork belly andouille sirloin ham hock co
-   nsequat ground round ham beef ribs bresaola et tail hamburger commodo bacon. Eius
-   mod capicola pancetta ham nisi turkey tempor qui hamburger.
-...
-   
-   Ribeye kevin irure, consectetur jowl tenderloin nulla. Nulla chuck ground round o
-  -fficia, prosciutto kevin shankle corned beef anim salami spare ribs. Landjaeger p
+  +nsequat ground round ham beef ribs bresaola et tail hamburger commodo bacon. Eius
+  +mod capicola pancetta ham nisi turkey tempor qui hamburger.
+  +
+  +Ribeye kevin irure, consectetur jowl tenderloin nulla. Nulla chuck ground round o
   +fficia, kevin shankle corned beef anim salami spare ribs. Landjaeger p
-   astrami aliquip andouille. Proident in venison bresaola drumstick landjaeger occa
-   ecat. Pork spare ribs consectetur sint flank veniam.
+  +astrami aliquip andouille. Proident in venison bresaola drumstick landjaeger occa
+  +ecat. Pork spare ribs consectetur sint flank veniam.
 
 
 
 Test summary:
  Tests run: 1
  Passed 0 
- Failed 1 - Tests: 7
+ Failed 1 - Tests: 5
