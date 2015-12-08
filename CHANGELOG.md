@@ -1,5 +1,8 @@
 # Changelog
 
+### 2.3.0 - 2015-12-07
+- New: individual tests can print output with `trace: true`
+
 ### 2.2.5 - 2015-05-02
 - Fix: bundler require issue.
 

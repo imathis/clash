@@ -16,7 +16,7 @@ module Clash
     def run
       Dir.chdir(@options['dir']) do
         clear_cache
-        system_cmd(@options['before'])
+        system_cmd(@options['before'], @options['trace'])
         config
         build if @options['build']
         unless @options['build_only']
@@ -102,15 +102,18 @@ module Clash
       system "jekyll build #{options}"
     end
 
-    def system_cmd(cmds)
+    def system_cmd(cmds, trace=nil)
+      t = ENV['TRACE']
+      ENV['TRACE'] = 'true' if trace
       cmds = Array(cmds)
       cmds.each {|cmd| 
         if @options['tasks'].include?(cmd)
-          system_cmd(@options['tasks'][cmd])
+          system_cmd(@options['tasks'][cmd], trace)
         else
           system(cmd) 
         end
       }
+      ENV['TRACE'] = t
     end
 
     def accept

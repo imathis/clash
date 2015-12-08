@@ -151,8 +151,6 @@ module Clash
     end
 
     def print_results
-
-
       puts boldit("\n\nFailures:") unless @results.empty?
       @results.each do |results|
         puts "\n#{results.join('')}"

@@ -62,6 +62,7 @@ A clash test can be configured with the following options. Each of these is opti
 | compare          | String/Array   | Compare files or directories. Format: "_expected _site"    |
 | after            | String/Array   | Run system command(s) after running tests.                 |
 | enforce_missing  | String/Array   | Ensure that these files are not found.                     |
+| trace            | Boolean        | Pass through test output to stdout.                        |
 
 Note: Above, String/Array means a configuration can accept either, for example:
 
