@@ -3,6 +3,7 @@ require 'colorator'
 require 'find'
 require 'safe_yaml'
 require 'diffy'
+require 'OS'
 
 module Clash
   autoload :Tests,    'clash/tests'
