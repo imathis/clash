@@ -42,6 +42,10 @@ OptionParser.new do |opts|
       options[:context] = context
     end
 
+    opts.on("-s", "--strip-cr", Integer, "Strip trailing carriage return mode. default: 2 [0 - Off, 1-Strip, 2-Strip in windows]") do |b|
+      options[:strip_cr] = b
+    end
+
     opts.on("-t", "--trace", "Display output while running tests") do |t|
       options[:trace] = t
     end

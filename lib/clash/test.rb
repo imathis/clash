@@ -102,18 +102,20 @@ module Clash
       system "jekyll build #{options}"
     end
 
-    def system_cmd(cmds, trace=nil)
-      t = ENV['TRACE']
-      ENV['TRACE'] = 'true' if trace
+    def system_cmd(cmds, trace=nil) 
       cmds = Array(cmds)
       cmds.each {|cmd| 
         if @options['tasks'].include?(cmd)
           system_cmd(@options['tasks'][cmd], trace)
         else
-          system(cmd) 
+          env = ENV.to_hash
+          env['TRACE'] = 'true' if trace
+          rc = system(cmd,env)
+          if (!rc) then
+            puts(  "Failed command : #{cmd}" )
+          end
         end
       }
-      ENV['TRACE'] = t
     end
 
     def accept
@@ -139,7 +141,7 @@ module Clash
       Array(@options['compare']).each do |files|
         f = files.gsub(',',' ').split
 
-        differ = Diff.new(f.first, f.last, context: @options['context'])
+        differ = Diff.new(f.first, f.last, context: @options['context'], strip_cr: @options['strip_cr'])
         diff = differ.diff
 
         @test_failures.concat differ.test_failures

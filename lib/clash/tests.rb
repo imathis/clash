@@ -70,6 +70,7 @@ module Clash
 
       options['index'] = index + 1
       options['context'] = @options[:context]
+      options['strip_cr']= @options[:strip_cr]
       options['tasks'] = @tasks
       options['build_only'] = @options[:build_only]
 

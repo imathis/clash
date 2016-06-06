@@ -71,15 +71,19 @@ module Clash
       end
     end
 
-    def system(*cmd)
-      cmd = cmd.join(' ')
+    def system(cmd, env = nil)
+      env ||= ENV.to_hash
+      cmd = cmd.join(' ') if cmd.is_a?(Array)
       # Don't ouput to /dev/null if in trace mode
-      # or if a command supplies its own ouput
-      if !ENV['TRACE'] && !(cmd =~ / > /)
-        cmd << " > /dev/null"
+      # or if a command supplies its own ouput      
+      if !env['TRACE'] && !(cmd =~ / > /)
+        if !OS.windows? then
+          cmd << " > /dev/null"
+        else
+          cmd << " > nul"
+        end
       end
-
-      Kernel.system cmd
+      Kernel.system(env,cmd)
     end
 
     # Print a single character without a newline
