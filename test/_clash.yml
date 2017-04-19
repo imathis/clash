@@ -1,7 +1,7 @@
 - tasks:
     test_tasks:
-      - echo "testing a task"
-      - echo "testing another task"
+      - ruby -e "puts('testing a task')"
+      - ruby -e "puts('testing another task')"
 
 - title: Test Octopress Ink configuration
   dir: jekyll
@@ -56,7 +56,7 @@
 
 - title: Test accept option
   before: 
-    - echo 'wrong' > compare-files/a/1.txt
+    - ruby -e "puts('wrong')" > compare-files/a/1.txt
     - clash 6
     - clash accept 6
     - clash 6

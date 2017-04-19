@@ -9,6 +9,7 @@ module Clash
       @a       = a
       @b       = b
       @context = options[:context] || 2
+      @strip_cr= options[:strip_cr] || 2
       @test_failures = []
     end
 
@@ -24,7 +25,13 @@ module Clash
 
     def diff_files(a, b)
       if exists(a) && exists(b)
-        diffy = Diffy::Diff.new(a,b, :source => 'files', :context => @context)
+        options = { :source => 'files' }
+        if @strip_cr == 1 or ( @strip_cr == 2 && OS.windows? ) then
+          options[:diff] = "--strip-trailing-cr -U #{@context}"
+        else
+          options[:context] = @context
+        end
+        diffy = Diffy::Diff.new(a,b, options )
         file_diff = diffy.to_a
 
         if !file_diff.empty?
