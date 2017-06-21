@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "diffy", "~> 3.0"
   spec.add_runtime_dependency "safe_yaml", "~> 1.0"
-  spec.add_runtime_dependency "colorator", "~> 0.1"
+  spec.add_runtime_dependency "colorator"
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
